@@ -1,14 +1,14 @@
+<head>
+    <title>TrainSkill-กิจกรรมที่ขอเข้าร่วม</title>
+</head>
 <?php
 
 if (isset($_SESSION['timestamp'])) {
-    $courses = $data['courses'];
+    $training = $data['training'];
 ?>
-
-    <head>
-        <title>TrainSkill-รายการกิจกรรม</title>
-    </head>
     <div class="container mt-4 content">
-        <?php foreach ($courses as $activity): ?>
+        <h1 style="text-align: center;">กิจกรรมที่ขอเข้าร่วม</h1>
+        <?php foreach ($training as $activity): ?>
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-2 d-flex align-items-center">
@@ -23,7 +23,17 @@ if (isset($_SESSION['timestamp'])) {
                             <p class="card-text">ผู้สร้าง: <?= $activity['user_name'] ?></p>
                             <p class="card-text">รายละเอียด: <?= $activity['description'] ?></p>
                             <p class="card-text">จำกัดจำนวน: <?= $activity['max'] ?> คน</p>
-                            <a href="/course?id=<?= $activity['course_id'] ?>" class="btn btn-primary">รายละเอียด</a>
+
+                            <?php
+                            if ($activity['status'] == 'waiting') {
+                                echo '<button class="btn btn-secondary">สถานะ: ' .  $activity['status']  . '</button>';
+                            } else if ($activity['status'] == 'completed') {
+                                echo '<button class="btn btn-success">สถานะ: ' .  $activity['status']  . '</button>';
+                            } else if ($activity['status'] == 'cancelled') {
+                                echo '<button class="btn btn-danger">สถานะ: ' .  $activity['status']  . '</button>';
+                            }
+                            ?>
+
                         </div>
                     </div>
                 </div>

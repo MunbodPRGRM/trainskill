@@ -29,3 +29,12 @@ function logout(): void
 {
     unset($_SESSION['timestamp']);
 }
+
+function register(String $user_name, String $email, String $password): void
+{
+    $conn = getConnection();
+    $sql = 'insert into users (user_name, email, password) values (?, ?, ?)';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sss', $user_name, $email, $password);
+    $stmt->execute();
+}

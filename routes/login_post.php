@@ -10,8 +10,9 @@ if ($result) {
     $_SESSION['user_id'] = $result['user_id'];
 
     $result = getCourses();
+    header('Location: /');
     renderView('home_get', ['courses' => $result]);
-    exit;
+    
 } else {
     $_SESSION['message'] = 'Email or Password invalid';
     renderView('login_get');

@@ -1,12 +1,11 @@
+<head>
+    <title>TrainSkill-กิจกรรมของคุณ</title>
+</head>
 <?php
 
 if (isset($_SESSION['timestamp'])) {
     $courses = $data['courses'];
 ?>
-
-    <head>
-        <title>TrainSkill-รายการกิจกรรม</title>
-    </head>
     <div class="container mt-4 content">
         <?php foreach ($courses as $activity): ?>
             <div class="card mb-3">
@@ -23,7 +22,9 @@ if (isset($_SESSION['timestamp'])) {
                             <p class="card-text">ผู้สร้าง: <?= $activity['user_name'] ?></p>
                             <p class="card-text">รายละเอียด: <?= $activity['description'] ?></p>
                             <p class="card-text">จำกัดจำนวน: <?= $activity['max'] ?> คน</p>
-                            <a href="/course?id=<?= $activity['course_id'] ?>" class="btn btn-primary">รายละเอียด</a>
+                            <a href="/course_participant?id=<?= $activity['course_id'] ?>" class="btn btn-info">ดูผู้เข้าร่วม</a>
+                            <a href="/course_edit?id=<?= $activity['course_id'] ?>" class="btn btn-primary">แก้ไข</a>
+                            <a href="/course_delete?id=<?= $activity['course_id'] ?>" class="btn btn-danger">ลบ</a>
                         </div>
                     </div>
                 </div>
