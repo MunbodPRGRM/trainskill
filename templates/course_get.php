@@ -10,11 +10,11 @@
                     <?php $courses = $data['courses']; ?>
                     <?php foreach ($courses as $activity): ?>
                         <h2 class="mb-3"><?= $activity['course_name'] ?></h2>
-                        <img src="data:image/jpeg;base64,<?= base64_encode($activity['image1']) ?>" class="img-fluid rounded" alt="กิจกรรม">
+                        <!-- ใส่รูปตรงนี้ด้วย หมายถึงในนีแหละ ใส่ต่อจาก h2 เลย -->
 
                         <p class="mt-3"><strong>👤 ผู้จัดกิจกรรม:</strong> <?= $activity['user_name'] ?></p>
                         <p><strong>📌 รายละเอียด:</strong> <?= $activity['description'] ?></p>
-                        <p><strong>👥 จำนวนผู้เข้าร่วม:</strong> กำลังรับสมัคร <?= $activity['max'] ?> คน</p>
+                        <p><strong>👥 จำนวนผู้เข้าร่วม:</strong> กำลังรับสมัคร <?= getNumberParticipants($activity['course_id']); ?>/<?= $activity['max_participants'] ?> คน</p>
                         <p><strong>📅 วันที่จัดกิจกรรม:</strong> <?= $activity['start_date'] ?></p>
                         <p><strong>📅 ถึง:</strong> <?= $activity['end_date'] ?></p>
 
@@ -29,9 +29,8 @@
             <div class="d-flex flex-column gap-3">
                 <?php if (isset($_SESSION['timestamp'])): ?>
                     <?php foreach ($courses as $activity): ?>
-                        <img src="data:image/jpeg;base64,<?= base64_encode($activity['image2']) ?>" class="img-fluid rounded shadow" alt="กิจกรรม">
-                        <img src="data:image/jpeg;base64,<?= base64_encode($activity['image3']) ?>" class="img-fluid rounded shadow" alt="กิจกรรม">
-                        <img src="data:image/jpeg;base64,<?= base64_encode($activity['image4']) ?>" class="img-fluid rounded shadow" alt="กิจกรรม">
+                        <!-- ใส่รูปตรงนี้ด้วย 3 รูป แต่อาจจะมีการเปลี่ยนวิธีการดึง จากใช้ loop ก็เปลี่ยนเป็นดึงมาเลย -->
+                         <!-- ไม่สิ บางทีเราอาจจะใช้ design ใหม่ ใส่รูปที่ด้านล่างของรายละเอี่ยดกิจกรรมไปเลย จะได้ไม่จำกัดรูปภาพ -->
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>

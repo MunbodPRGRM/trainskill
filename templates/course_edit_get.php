@@ -7,11 +7,6 @@
 $course = $data['course'];
 $activity = $course->fetch_assoc();
 
-$imageData1 = base64_encode($activity['image1']);
-$imageData2 = base64_encode($activity['image2']);
-$imageData3 = base64_encode($activity['image3']);
-$imageData4 = base64_encode($activity['image4']);
-
 ?>
 
 <div class="container mt-4 content">
@@ -22,7 +17,7 @@ $imageData4 = base64_encode($activity['image4']);
                 <!-- อัปโหลดรูปหลัก -->
                 <div class="col-md-4 d-flex align-items-center justify-content-center">
                     <label for="image1" class="border d-flex align-items-center justify-content-center bg-dark" style="cursor: pointer;">
-                        <?php echo '<img src="data:image/jpeg;base64,' . $imageData1 . '" class="img-fluid" alt="กิจกรรม">'; ?>
+                        <!-- เปลี่ยนรูปปกตรงนี้ -->
                     </label>
                     <input type="file" id="image1" name="image1" class="d-none">
                 </div>
@@ -37,8 +32,8 @@ $imageData4 = base64_encode($activity['image4']);
                         <input type="text" id="description" name="description" class="form-control" value="<?= $activity['description'] ?>" required>
                     </div>
                     <div class="mb-2">
-                        <label for="max" class="form-label">จำนวนคนสูงสุด</label>
-                        <input type="number" id="max" name="max" class="form-control" value="<?= $activity['max'] ?>" required>
+                        <label for="max_participants" class="form-label">จำนวนคนสูงสุด</label>
+                        <input type="number" id="max_participants" name="max_participants" class="form-control" value="<?= $activity['max_participants'] ?>" required>
                     </div>
                     <div class="mb-2">
                         <label for="start_date" class="form-label">วันที่เริ่ม</label>
@@ -55,19 +50,19 @@ $imageData4 = base64_encode($activity['image4']);
             <div class="row mt-5">
                 <div class="col-md-4">
                     <label for="image2" class="border d-flex align-items-center justify-content-center bg-dark" style="cursor: pointer;">
-                        <?php echo '<img src="data:image/jpeg;base64,' . $imageData2 . '" class="img-fluid" alt="กิจกรรม">'; ?>
+                        <!-- เปลี่ยนรูปที่ 1 -->
                     </label>
                     <input type="file" id="image2" name="image2" class="d-none">
                 </div>
                 <div class="col-md-4">
                     <label for="image3" class="border d-flex align-items-center justify-content-center bg-dark" style="cursor: pointer;">
-                        <?php echo '<img src="data:image/jpeg;base64,' . $imageData3 . '" class="img-fluid" alt="กิจกรรม">'; ?>
+                        <!-- เปลี่ยนรูปที่ 2 -->
                     </label>
                     <input type="file" id="image3" name="image3" class="d-none">
                 </div>
                 <div class="col-md-4">
                     <label for="image4" class="border d-flex align-items-center justify-content-center bg-dark" style="cursor: pointer;">
-                        <?php echo '<img src="data:image/jpeg;base64,' . $imageData4 . '" class="img-fluid" alt="กิจกรรม">'; ?>
+                        <!-- เปลี่ยนรูปที่ 3 -->
                     </label>
                     <input type="file" id="image4" name="image4" class="d-none">
                 </div>

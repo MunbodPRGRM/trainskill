@@ -72,3 +72,21 @@ function joinCourse(int $course_id, int $user_id): bool
         return false;
     }
 }
+
+function getNumberParticipants(int $course_id): int
+{
+    $conn = getConnection();
+    $sql = '
+        SELECT COUNT(*) as count
+        FROM registration
+        WHERE course_id = ?
+    ';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $course_id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    return $row['count'];
+}

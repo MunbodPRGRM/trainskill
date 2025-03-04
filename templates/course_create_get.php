@@ -23,8 +23,8 @@
                         <input type="text" id="description" name="description" class="form-control" required>
                     </div>
                     <div class="mb-2">
-                        <label for="max" class="form-label">จำนวนคนสูงสุด</label>
-                        <input type="number" id="max" name="max" class="form-control" required>
+                        <label for="max_participants" class="form-label">จำนวนคนสูงสุด</label>
+                        <input type="number" id="max_participants" name="max_participants" class="form-control" required>
                     </div>
                     <div class="mb-2">
                         <label for="start_date" class="form-label">วันที่เริ่ม</label>

@@ -9,7 +9,7 @@ if ($join) {
     $registration = getRegistrationToTraining($userId, $courseId);
     $registrationId = $registration->fetch_assoc()['registration_id'];
 
-    $result = createTraining($userId, $courseId, $registrationId);
+    $result = createTraining($registrationId);
 
     if ($result) {
         header('Location: /history');

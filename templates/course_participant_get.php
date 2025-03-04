@@ -35,8 +35,8 @@ $training = $data['training'];
                                 <?php if ($activity['status'] == 'completed' || $activity['status'] == 'cancelled') { ?>
                                     <p>จัดการเสร็จสิ้น</p>
                                 <?php } else { ?>
-                                    <a href="" class="btn btn-success btn-sm">ยอมรับ</a>
-                                    <a href="" class="btn btn-danger btn-sm">ปฏิเสธ</a>
+                                    <a href="" class="btn btn-success btn-sm" onclick="return confirmAlright()">ยอมรับ</a>
+                                    <a href="" class="btn btn-danger btn-sm" onclick="return confirmReject()">ปฏิเสธ</a>
                                 <?php } ?>
                             </td>
                         </tr>

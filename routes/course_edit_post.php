@@ -3,7 +3,7 @@
 $course_id = $_POST['course_id'];
 $courseName = $_POST['name'];
 $description = $_POST['description'];
-$max = $_POST['max'];
+$max = $_POST['max_participants'];
 $startDate = $_POST['start_date'];
 $endDate = $_POST['end_date'];
 

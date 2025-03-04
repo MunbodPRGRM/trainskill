@@ -5,10 +5,7 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card shadow-lg p-5" style="max-width: 600px; width: 100%;">
             <div class="text-center">
-                <?php
-                $imageData = base64_encode($data['result']['image']);
-                echo '<img src="data:image/jpeg;base64,' . $imageData . '" class="rounded-circle img-fluid" style="width: 150px; height: 150px;" alt="โปรไฟล์">';
-                ?>
+                <!-- ใส่รูปโปรไฟล์ตรงนี้ -->
             </div>
             <div class="mt-4">
                 <h4 class="text-center">ข้อมูลผู้ใช้</h4>
