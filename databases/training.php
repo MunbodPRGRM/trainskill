@@ -77,3 +77,20 @@ function createTraining(int $registrationId): bool
 
     return $result;
 }
+
+function updateStatus($user_id, $course_id, $status): bool
+{
+    $conn = getConnection();
+    $sql = '
+        UPDATE training t
+        INNER JOIN registration r ON t.registration_id = r.registration_id
+        SET t.status = ?
+        WHERE r.user_id = ? AND r.course_id = ?;
+    ';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sii', $status, $user_id, $course_id);
+
+    $result = $stmt->execute();
+
+    return $result;
+}

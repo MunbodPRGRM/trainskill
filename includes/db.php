@@ -18,3 +18,4 @@ require_once DATABASE_DIR . '/authen.php';
 require_once DATABASE_DIR . '/courses.php';
 require_once DATABASE_DIR . '/registration.php';
 require_once DATABASE_DIR . '/training.php';
+require_once DATABASE_DIR . '/images.php';

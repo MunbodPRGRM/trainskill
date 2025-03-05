@@ -1,7 +1,3 @@
-<head>
-    <title>TrainSkill-รายละเอียดกิจกรรม</title>
-</head>
-
 <div class="container mt-4 content">
     <div class="row">
         <div class="col-md-8">
@@ -10,7 +6,26 @@
                     <?php $courses = $data['courses']; ?>
                     <?php foreach ($courses as $activity): ?>
                         <h2 class="mb-3"><?= $activity['course_name'] ?></h2>
-                        <!-- ใส่รูปตรงนี้ด้วย หมายถึงในนีแหละ ใส่ต่อจาก h2 เลย -->
+                            <?php
+                                $course_id = $activity['course_id'];
+                                $courseDetails = getCourseImageTitle($course_id);
+                                
+                                if ($courseDetails) {
+                                    $images = $courseDetails['images'];
+                                    
+                                    if (!empty($images)) {
+                                        echo "<div class='course-images'>";
+                                        foreach ($images as $imageURL) {
+                                            echo "<img src='$imageURL' class='img-fluid rounded-start' alt='กิจกรรม'>";
+                                        }
+                                        echo "</div>";
+                                    } else {
+                                        echo "<p>ไม่มีรูปภาพสำหรับคอร์สนี้</p>";
+                                    }
+                                } else {
+                                    echo "<p>ไม่พบคอร์สที่ตรงกับ course_id นี้</p>";
+                                }
+                            ?>
 
                         <p class="mt-3"><strong>👤 ผู้จัดกิจกรรม:</strong> <?= $activity['user_name'] ?></p>
                         <p><strong>📌 รายละเอียด:</strong> <?= $activity['description'] ?></p>
@@ -29,8 +44,27 @@
             <div class="d-flex flex-column gap-3">
                 <?php if (isset($_SESSION['timestamp'])): ?>
                     <?php foreach ($courses as $activity): ?>
-                        <!-- ใส่รูปตรงนี้ด้วย 3 รูป แต่อาจจะมีการเปลี่ยนวิธีการดึง จากใช้ loop ก็เปลี่ยนเป็นดึงมาเลย -->
-                         <!-- ไม่สิ บางทีเราอาจจะใช้ design ใหม่ ใส่รูปที่ด้านล่างของรายละเอี่ยดกิจกรรมไปเลย จะได้ไม่จำกัดรูปภาพ -->
+                        <?php
+                            $course_id = $activity['course_id'];
+                            $courseDetails = getCourseDetails($course_id);
+
+                            if ($courseDetails) {
+                                $images = $courseDetails['images'];
+                                
+                                // ดึงแค่รูปภาพลำดับที่ 2-4
+                                $imagesToShow = array_slice($images, 1, 3); // เริ่มที่ index 1 (ลำดับที่ 2) และแสดง 3 รูป
+                                
+                                if (!empty($imagesToShow)) {
+                                    echo "<div class='course-images'>";
+                                    foreach ($imagesToShow as $imageURL) {
+                                        echo "<img src='$imageURL' class='img-fluid rounded-start' alt='กิจกรรม'>";
+                                    }
+                                    echo "</div>";
+                                } else {
+                                    echo "<p>ไม่มีรูปภาพสำหรับคอร์สนี้</p>";
+                                }
+                            }
+                        ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>

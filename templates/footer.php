@@ -10,4 +10,6 @@ if (isset($_SESSION['timestamp'])) {
 
 </body>
 
+    <script src="script.js"></script>
+
 </html>

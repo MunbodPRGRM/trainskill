@@ -32,11 +32,11 @@ $training = $data['training'];
                             <td><?= (new DateTime())->diff(new DateTime($activity['birthday']))->y . " ปี"; ?></td>
                             <td><?= $activity['status'] ?></td>
                             <td class="text-center">
-                                <?php if ($activity['status'] == 'completed' || $activity['status'] == 'cancelled') { ?>
-                                    <p>จัดการเสร็จสิ้น</p>
+                                <?php if ($activity['status'] == 'accepted' || $activity['status'] == 'cancelled') { ?>
+                                    <a href="/course_response?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&status=<?= $activity['status'] ?>&bt=0" class="btn btn-warning btn-sm" onclick="return confirmAlright()">ยกเลิก</a>
                                 <?php } else { ?>
-                                    <a href="" class="btn btn-success btn-sm" onclick="return confirmAlright()">ยอมรับ</a>
-                                    <a href="" class="btn btn-danger btn-sm" onclick="return confirmReject()">ปฏิเสธ</a>
+                                    <a href="/course_response?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&status=<?= $activity['status'] ?>&bt=1" class="btn btn-success btn-sm" onclick="return confirmAlright()">ยอมรับ</a>
+                                    <a href="/course_response?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&status=<?= $activity['status'] ?>&bt=2" class="btn btn-danger btn-sm" onclick="return confirmReject()">ปฏิเสธ</a>
                                 <?php } ?>
                             </td>
                         </tr>

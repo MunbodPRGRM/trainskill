@@ -70,21 +70,26 @@ function getCourseByUserId(int $user_id): mysqli_result|bool
     return $result;
 }
 
-function createCourse(String $courseName, String $description, int $max, String $startDate, String $endDate, int $userId): bool
-{
-    $conn = getConnection();
-    $sql = '
-        INSERT INTO courses (course_name, description, max_participants, start_date, end_date, user_id)
-        VALUES (?, ?, ?, ?, ?, ?)
-    ';
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssisss', $courseName, $description, $max, $startDate, $endDate, $userId);
-    $stmt->execute();
+// ฟังก์ชั่นสำหรับการสร้างคอร์สและอัปโหลดรูปภาพ
+function createCourse($courseName, $description, $maxParticipants, $startDate, $endDate, $userId) {
+    $conn = getConnection(); // ฟังก์ชั่นเชื่อมต่อฐานข้อมูล
 
-    if ($stmt->affected_rows > 0) {
-        return true;
+    // เพิ่มคอร์สใหม่ในฐานข้อมูล
+    $stmt = $conn->prepare("INSERT INTO courses (course_name, user_id, description, start_date, end_date, max_participants) 
+                            VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sisiss", $courseName, $userId, $description, $startDate, $endDate, $maxParticipants);
+
+    if ($stmt->execute()) {
+        $courseId = $conn->insert_id; // ดึง course_id ที่เพิ่มเข้ามาใหม่
+        $stmt->close();
+
+        // อัปโหลดรูปภาพที่เกี่ยวข้องกับคอร์ส
+        uploadCourseImages($courseId, $_FILES); // เรียกฟังก์ชั่น uploadCourseImages
+
+        return true; // สร้างคอร์สสำเร็จ
     } else {
-        return false;
+        $stmt->close();
+        return false; // เกิดข้อผิดพลาดในการเพิ่มคอร์ส
     }
 }
 

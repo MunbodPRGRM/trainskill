@@ -1,6 +1,6 @@
 <?php
 
-$courseName = $_POST['name'];
+$courseName = $_POST['course_name'];
 $description = $_POST['description'];
 $max = $_POST['max_participants'];
 $startDate = $_POST['start_date'];

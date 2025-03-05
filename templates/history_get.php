@@ -46,7 +46,7 @@ if (isset($_SESSION['timestamp'])) {
                                 <?php
                                 if ($activity['status'] == 'waiting') {
                                     echo '<button class="btn btn-secondary">สถานะ: ' . $activity['status'] . '</button>';
-                                } else if ($activity['status'] == 'completed') {
+                                } else if ($activity['status'] == 'accepted') {
                                     echo '<button class="btn btn-success">สถานะ: ' . $activity['status'] . '</button>';
                                 } else if ($activity['status'] == 'cancelled') {
                                     echo '<button class="btn btn-danger">สถานะ: ' . $activity['status'] . '</button>';
