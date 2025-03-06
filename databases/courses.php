@@ -70,42 +70,46 @@ function getCourseByUserId(int $user_id): mysqli_result|bool
     return $result;
 }
 
-// ฟังก์ชั่นสำหรับการสร้างคอร์สและอัปโหลดรูปภาพ
 function createCourse($courseName, $description, $maxParticipants, $startDate, $endDate, $userId) {
-    $conn = getConnection(); // ฟังก์ชั่นเชื่อมต่อฐานข้อมูล
+    $conn = getConnection(); 
 
-    // เพิ่มคอร์สใหม่ในฐานข้อมูล
     $stmt = $conn->prepare("INSERT INTO courses (course_name, user_id, description, start_date, end_date, max_participants) 
                             VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sisiss", $courseName, $userId, $description, $startDate, $endDate, $maxParticipants);
+    $stmt->bind_param("sisssi", $courseName, $userId, $description, $startDate, $endDate, $maxParticipants);
 
     if ($stmt->execute()) {
-        $courseId = $conn->insert_id; // ดึง course_id ที่เพิ่มเข้ามาใหม่
+        $courseId = $conn->insert_id; 
         $stmt->close();
 
-        // อัปโหลดรูปภาพที่เกี่ยวข้องกับคอร์ส
-        uploadCourseImages($courseId, $_FILES); // เรียกฟังก์ชั่น uploadCourseImages
+        uploadCourseImages($courseId, $_FILES); 
 
-        return true; // สร้างคอร์สสำเร็จ
+        return true; 
     } else {
         $stmt->close();
-        return false; // เกิดข้อผิดพลาดในการเพิ่มคอร์ส
+        return false; 
     }
 }
 
-function editCourse(int $course_id, string $course_name, string $description, int $max, string $start_date, string $end_date,): bool
+function editCourse(int $course_id, string $course_name, string $description, int $max, string $start_date, string $end_date, $files): bool
 {
     $conn = getConnection();
+
     $sql = '
-        UPDATE courses
-        SET course_name = ?, description = ?, max_participants = ?, start_date = ?, end_date = ?
-        WHERE course_id = ?
+            UPDATE courses
+            SET course_name = ?, description = ?, max_participants = ?, start_date = ?, end_date = ?
+            WHERE course_id = ?
     ';
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssisss', $course_name, $description, $max, $start_date, $end_date, $course_id);
+    $stmt->bind_param('ssissi', $course_name, $description, $max, $start_date, $end_date, $course_id);
     $result = $stmt->execute();
+    $stmt->close();
 
-    return $result;
+    if ($result) {
+        updateImages($course_id, $files);
+        return true;  
+    } else {
+        return false;
+    }
 }
 
 function deleteCourse(int $course_id): bool

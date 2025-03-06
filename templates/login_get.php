@@ -5,9 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrainSkill-เข้าสู่ระบบ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #d3d3d3, #1e3c72);
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                width: 50%;
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .card {
+                width: 310px; 
+            }
+        }
+
+        @media (min-width: 992px) {
+            .card {
+                width: 350px; 
+            }
+        }
+    </style>
 </head>
-<body class="d-flex justify-content-center align-items-center vh-100" style="background: linear-gradient(to right, #d3d3d3, #1e3c72);">
-    <div class="card p-4 shadow-lg" style="width: 350px; border-radius: 10px;">
+<body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-lg">
         <h3 class="text-center mb-3">LOGIN TO YOUR ACCOUNT</h3>
         <form action="/login" method="post">
             <div class="mb-3">

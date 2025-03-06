@@ -44,16 +44,16 @@ $images = $courseDetails ? $courseDetails['images'] : [];
 
 <div class="container mt-4 content">
     <div class="card p-4">
-        <form action="/course_edit" method="post">
+        <form action="/course_edit" method="post" enctype="multipart/form-data">
             <div class="row">
                 <input type="hidden" name="course_id" value="<?= $activity['course_id'] ?>">
                 <!-- อัปโหลดรูปหลัก -->
                 <div class="col-12 col-md-6 d-flex align-items-center justify-content-center mb-3 mb-md-0">
                     <label for="image1" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload-titel">
                         <?php
-                            if (!empty($images)) {
+                            if (!empty($images[1])) {
                                 echo "<div class='course-images'>";
-                                echo "<img src='{$images[0]}' class='img-fluid rounded-start' alt='กิจกรรม'>";
+                                echo "<img src='{$images[1]}' class='img-fluid rounded-start' alt='กิจกรรม'>";
                                 echo "</div>";
                             } else {
                                 echo "<p>ไม่มีรูปภาพสำหรับคอร์สนี้</p>";
@@ -93,36 +93,20 @@ $images = $courseDetails ? $courseDetails['images'] : [];
 
             <!-- อัปโหลดรูปเพิ่มเติม -->
             <div class="row mt-3">
-                <div class="col-12 col-md-4">
-                    <label for="image2" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload">
-                        <?php
-                            if (isset($images[1])) {
-                                echo "<img src='{$images[1]}' class='img-fluid' alt='รูปที่ 2'>";
-                            }
-                        ?>
-                    </label>
-                    <input type="file" id="image2" name="image2" class="d-none">
-                </div>
-                <div class="col-12 col-md-4">
-                    <label for="image3" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload">
-                        <?php
-                            if (isset($images[2])) {
-                                echo "<img src='{$images[2]}' class='img-fluid' alt='รูปที่ 3'>";
-                            }
-                        ?>
-                    </label>
-                    <input type="file" id="image3" name="image3" class="d-none">
-                </div>
-                <div class="col-12 col-md-4">
-                    <label for="image4" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload">
-                        <?php
-                            if (isset($images[3])) {
-                                echo "<img src='{$images[3]}' class='img-fluid' alt='รูปที่ 4'>";
-                            }
-                        ?>
-                    </label>
-                    <input type="file" id="image4" name="image4" class="d-none">
-                </div>
+                <?php
+                    for ($i = 2; $i <= 4; $i++) { ?>
+                        <div class="col-12 col-md-4">
+                            <label for="image<?= $i ?>" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload">
+                                <?php
+                                    if (!empty($images[$i])) {
+                                            echo "<img src='{$images[$i]}' class='img-fluid' alt='รูปที่ {$i}'>";
+                                    } else {
+                                        echo "<p>เพิ่มรูปที่ {$i}</p>";
+                                } ?>
+                            </label>
+                            <input type="file" id="image<?= $i ?>" name="image<?= $i ?>" class="d-none">
+                        </div>
+                <?php } ?>
             </div>
 
             <div class="mt-4 text-center">

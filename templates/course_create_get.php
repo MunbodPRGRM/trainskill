@@ -2,7 +2,7 @@
     <title>TrainSkill-สร้างกิจกรรม</title>
     <style>
         /* เริ่มต้นสำหรับอุปกรณ์ที่มีหน้าจอขนาดใหญ่ */
-        .image-upload-titel {
+        .image-upload-title {
             height: 350px;
             width: 100%;
             cursor: pointer;
@@ -20,7 +20,7 @@
                 width: 100%;
                 cursor: pointer;
             }
-            .image-upload-titel {
+            .image-upload-title {
                 height: 150px;
                 width: 100%;
                 cursor: pointer;
@@ -37,7 +37,7 @@
             <div class="row">
                 <!-- อัปโหลดรูปหลัก -->
                 <div class="col-12 col-md-6 d-flex align-items-center justify-content-center mb-3 mb-md-0">
-                    <label for="image1" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload-titel">
+                    <label for="image1" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload-title">
                         <img id="preview1" src="#" alt="+" class="d-none w-100 h-100 object-fit-cover">
                     </label>
                     <input type="file" id="image1" name="image1" class="d-none" accept="image/jpeg, image/png" onchange="previewImage(this, 'preview1')">

@@ -50,21 +50,21 @@
 
                             if ($courseDetails) {
                                 $images = $courseDetails['images'];
-                                
+    
                                 // ดึงแค่รูปภาพลำดับที่ 2-4
                                 $imagesToShow = array_slice($images, 1, 3); // เริ่มที่ index 1 (ลำดับที่ 2) และแสดง 3 รูป
-                                
-                                if (!empty($imagesToShow)) {
-                                    echo "<div class='course-images'>";
-                                    foreach ($imagesToShow as $imageURL) {
-                                        echo "<img src='$imageURL' class='img-fluid rounded-start' alt='กิจกรรม'>";
-                                    }
-                                    echo "</div>";
-                                } else {
-                                    echo "<p>ไม่มีรูปภาพสำหรับคอร์สนี้</p>";
+    
+                                echo "<div class='course-images'>";
+    
+                                for ($i = 0; $i < 3; $i++) {
+                                    if (isset($imagesToShow[$i]) && !empty($imagesToShow[$i])) {
+                                        echo "<img src='{$imagesToShow[$i]}' class='img-fluid rounded-start' alt='กิจกรรม'>";
+                                    } 
                                 }
-                            }
-                        ?>
+                                echo "</div>";
+                            } else {
+                                echo "<p>ไม่มีข้อมูลคอร์สนี้</p>";
+                        } ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>

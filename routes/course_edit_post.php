@@ -7,10 +7,11 @@ $max = $_POST['max_participants'];
 $startDate = $_POST['start_date'];
 $endDate = $_POST['end_date'];
 
-$result = editCourse($course_id, $courseName, $description, $max, $startDate, $endDate);
+$result = editCourse($course_id, $courseName, $description, $max, $startDate, $endDate, $_FILES);
 
 if ($result) {
-    header('Location: /');
+    header('Location: /'); 
 } else {
     echo 'เกิดข้อผิดพลาดในการแก้ไขข้อมูล';
 }
+?>

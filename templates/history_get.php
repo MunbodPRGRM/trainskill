@@ -34,7 +34,26 @@ if (isset($_SESSION['timestamp'])) {
                 <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-2 d-flex align-items-center">
-                            <!-- ใส่รูปปกตรงนี้ -->
+                            <?php
+                                $course_id = $activity['course_id'];
+                                $courseDetails = getCourseImageTitle($course_id);
+                                
+                                if ($courseDetails) {
+                                    $images = $courseDetails['images'];
+                                    
+                                    if (!empty($images)) {
+                                        echo "<div class='course-images'>";
+                                        foreach ($images as $imageURL) {
+                                            echo "<img src='$imageURL' class='img-fluid rounded-start' alt='กิจกรรม'>";
+                                        }
+                                        echo "</div>";
+                                    } else {
+                                        echo "<p>ไม่มีรูปภาพสำหรับคอร์สนี้</p>";
+                                    }
+                                } else {
+                                    echo "<p>ไม่พบคอร์สที่ตรงกับ course_id นี้</p>";
+                                }
+                            ?>
                         </div>
                         <div class="col-md-10">
                             <div class="card-body">
