@@ -47,7 +47,7 @@
         <p class="text-center mt-3">Don't have an account? <a href="/register">Sign up now</a></p>
         <?php
         if (isset($_SESSION['message'])) {
-            echo '<div class="alert alert-danger mt-2">' . $_SESSION['message'] . '</div>';
+            echo '<div class="alert alert-success mt-2">' . $_SESSION['message'] . '</div>';
             unset($_SESSION['message']);
         }
         ?>

@@ -3,16 +3,15 @@
     <style>
         /* เริ่มต้นสำหรับอุปกรณ์ที่มีหน้าจอขนาดใหญ่ */
         .image-upload-titel {
-            height: 350px;
+            height: 344px;
             width: 100%;
             cursor: pointer;
         }
         .image-upload {
-            height: 220px;
+            height: 225.5px;
             width: 100%;
             cursor: pointer;
         }
-
         /* ปรับขนาดสำหรับอุปกรณ์มือถือ */
         @media (max-width: 768px) {
             .image-upload {
@@ -53,14 +52,14 @@ $images = $courseDetails ? $courseDetails['images'] : [];
                         <?php
                             if (!empty($images[1])) {
                                 echo "<div class='course-images'>";
-                                echo "<img src='{$images[1]}' class='img-fluid rounded-start' alt='กิจกรรม'>";
+                                echo "<img id='preview-image1' src='{$images[1]}' class='w-100 h-100 object-fit-cover' alt='กิจกรรม'>";
                                 echo "</div>";
                             } else {
                                 echo "<p>ไม่มีรูปภาพสำหรับคอร์สนี้</p>";
                             }
                         ?>
                     </label>
-                    <input type="file" id="image1" name="image1" class="d-none">
+                    <input type="file" id="image1" name="image1" class="d-none" accept="image/jpeg, image/png" onchange="previewImage(this, 'preview-image1')">
                 </div>
 
                 <div class="col-12 col-md-6">
@@ -97,14 +96,10 @@ $images = $courseDetails ? $courseDetails['images'] : [];
                     for ($i = 2; $i <= 4; $i++) { ?>
                         <div class="col-12 col-md-4">
                             <label for="image<?= $i ?>" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload">
-                                <?php
-                                    if (!empty($images[$i])) {
-                                            echo "<img src='{$images[$i]}' class='img-fluid' alt='รูปที่ {$i}'>";
-                                    } else {
-                                        echo "<p>เพิ่มรูปที่ {$i}</p>";
-                                } ?>
+                                <img id="preview-image<?= $i ?>" class="img-fluid <?= empty($images[$i]) ? 'd-none' : '' ?>" src="<?= !empty($images[$i]) ? $images[$i] : '' ?>" alt="รูปที่ <?= $i ?>">
+                                <?php if (empty($images[$i])) { echo "<p>เพิ่มรูปที่ {$i}</p>"; } ?>
                             </label>
-                            <input type="file" id="image<?= $i ?>" name="image<?= $i ?>" class="d-none">
+                            <input type="file" id="image<?= $i ?>" name="image<?= $i ?>" class="d-none" onchange="previewImage(this, 'preview-image<?= $i ?>')">
                         </div>
                 <?php } ?>
             </div>

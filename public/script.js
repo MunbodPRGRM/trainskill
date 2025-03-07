@@ -33,3 +33,11 @@ function previewImage(input, previewId) {
         reader.readAsDataURL(file);
     }
 }
+
+function preview(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        document.getElementById('preview').src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}

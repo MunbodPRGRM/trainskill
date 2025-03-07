@@ -69,35 +69,6 @@ function getCourseImageTitle($course_id) {
     }
 }
 
-// function getCourseDetails($course_id) {
-//     $conn = getConnection(); 
-
-//     $courseQuery = $conn->query("SELECT * FROM courses WHERE course_id = '$course_id'");
-    
-//     if ($courseQuery->num_rows > 0) {
-//         $course = $courseQuery->fetch_assoc();  
-
-//         $imagesQuery = $conn->query("SELECT * FROM images WHERE course_id = '$course_id'");
-
-//         $images = [];
-//         if ($imagesQuery->num_rows > 0) {
-//             while ($image = $imagesQuery->fetch_assoc()) {
-//                 $images[] = 'uploads/' . $image['file_name'];  
-//             }
-//         }
-
-//         $conn->close();
-
-//         return [
-//             'course' => $course,
-//             'images' => $images
-//         ];
-//     } else {
-//         $conn->close();  
-//         return null;  
-//     }
-// }
-
 function getCourseDetails($course_id) {
     $conn = getConnection();
 
@@ -132,7 +103,6 @@ function updateImages($course_id, $files) {
     $allowTypes = ['jpg', 'jpeg', 'png'];
     $conn = getConnection();
 
-    // ดึงข้อมูลรูปภาพที่มีอยู่ในฐานข้อมูลก่อน
     $stmt = $conn->prepare("SELECT image_id, file_name, image_order FROM images WHERE course_id = ?");
     $stmt->bind_param("i", $course_id);
     $stmt->execute();
@@ -147,7 +117,6 @@ function updateImages($course_id, $files) {
     }
     $stmt->close();
 
-    // อัปเดทหรืออัปโหลดรูปภาพใหม่
     foreach ($files as $key => $file) {
         if (!empty($file["name"])) {
             $fileName = time() . "_" . basename($file["name"]);
@@ -189,4 +158,96 @@ function updateImages($course_id, $files) {
     }
 
     return true;
+}
+
+function deleteImage($course_id) {
+    $targetDIR = __DIR__ . "/../public/uploads/";
+    $conn = getConnection();
+
+    $stmt = $conn->prepare("SELECT file_name FROM images WHERE course_id = ?");
+    $stmt->bind_param("i", $course_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        $filePath = $targetDIR . $row['file_name'];
+
+        if (file_exists($filePath)) {
+            if (unlink($filePath)) {
+                echo "ลบไฟล์: " . $filePath . " สำเร็จ<br>";
+            } else {
+                echo "ไม่สามารถลบไฟล์: " . $filePath . "<br>";
+            }
+        } else {
+            echo "ไฟล์ไม่พบ: " . $filePath . "<br>";
+        }
+    }
+
+    $stmt->close();
+
+    $deleteStmt = $conn->prepare("DELETE FROM images WHERE course_id = ?");
+    $deleteStmt->bind_param("i", $course_id);
+    $deleteStmt->execute();
+    $deleteStmt->close();
+}
+
+function uploadProfileImage($file) {
+    $targetDIR = __DIR__ . "/../public/uploads/";
+    $allowTypes = ['jpg', 'jpeg', 'png', 'gif'];
+    
+    $profile_image = null;
+
+    if (!empty($file["name"])) {
+        $fileName = time() . "_" . basename($file["name"]);
+        $targetFilePath = $targetDIR . $fileName;
+        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+        if (in_array($fileType, $allowTypes)) {
+            if (move_uploaded_file($file["tmp_name"], $targetFilePath)) {
+                $profile_image = $fileName;
+            } else {
+                error_log("There was an error uploading the file.");
+            }
+        } else {
+            error_log("Unsupported file type: " . $fileType);
+        }
+    }
+
+    return $profile_image; 
+}
+
+function updateProfileImage($file, $user_id) {
+    $targetDIR = __DIR__ . "/../public/uploads/";
+    $allowedTypes = ['jpg', 'jpeg', 'png'];
+
+    $fileName = time() . "_" . basename($file["name"]);
+    $targetFilePath = $targetDIR . $fileName;
+    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+    if (in_array($fileType, $allowedTypes)) {
+        $conn = getConnection();
+        $stmt = $conn->prepare("SELECT profile_image FROM users WHERE user_id = ?");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $oldFile = $targetDIR . $row['profile_image'];
+        $stmt->close();
+
+        if (!empty($row['profile_image']) && file_exists($oldFile)) {
+            if (!unlink($oldFile)) {
+                error_log("Failed to delete old profile image: " . $oldFile);
+            }
+        }
+
+        if (move_uploaded_file($file["tmp_name"], $targetFilePath)) {
+            return $fileName; 
+        } else {
+            $_SESSION['error'] = 'การอัปโหลดรูปภาพล้มเหลว';
+            return false;
+        }
+    } else {
+        $_SESSION['error'] = 'ไฟล์ไม่รองรับ';
+        return false;
+    }
 }

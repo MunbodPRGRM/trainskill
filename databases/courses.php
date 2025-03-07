@@ -112,16 +112,17 @@ function editCourse(int $course_id, string $course_name, string $description, in
     }
 }
 
-function deleteCourse(int $course_id)
-{
+function deleteCourse(int $course_id) {
     $conn = getConnection();
-    $sql = '
-        DELETE FROM courses
-        WHERE course_id = ?
-    ';
+
+    deleteImage($course_id);
+
+    $sql = "DELETE FROM courses WHERE course_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $course_id);
     $result = $stmt->execute();
+
+    $stmt->close();
 
     return $result;
 }
@@ -183,4 +184,17 @@ function searchCoursesWithSingleInput(string $searchInput)
     $result = $stmt->get_result();
 
     return $result;
+}
+
+function hasJoinedCourse($user_id, $course_id)
+{
+    // ฟังก์ชันนี้ควรตรวจสอบในฐานข้อมูลว่าผู้ใช้ได้เข้าร่วมกิจกรรมนี้แล้วหรือไม่
+    $conn = getConnection();
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM registration WHERE user_id = ? AND course_id = ?");
+    $stmt->bind_param("ii", $user_id, $course_id);
+    $stmt->execute();
+    $stmt->bind_result($count);
+    $stmt->fetch();
+    $stmt->close();
+    return $count > 0;
 }

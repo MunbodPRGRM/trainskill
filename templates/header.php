@@ -7,7 +7,7 @@
     <title>TrainSkill</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        html, body {
+        html {
             height: 100%;
             margin: 0;
             display: flex;
@@ -16,12 +16,17 @@
         .container {
             flex: 1;
         }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* ทำให้หน้าผู้ใช้มีความสูงเต็มจอ */
+        }
         footer {
-            background-color: #343a40;
+            margin-top: auto; /* ใช้ auto margin ให้ footer อยู่ด้านล่างสุด */
+            width: 100%;
+            background-color: #333;
             color: white;
             text-align: center;
-            padding: 10px 0;
-            margin-top: auto;
         }
         .navbar a, .navbar button {
             color: white!important;
@@ -39,10 +44,10 @@
             background: white;
             border: 1px solid #dfe1e5;
             box-shadow: none;
-            /* border-radius: 24px; */
+            border-radius: 24px;
             margin: 0 auto;
             width: auto;
-            max-width: 224px;
+            width: 600px;
         }
         .searchbar:hover {
             box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
@@ -118,47 +123,51 @@
         .searchbar-clear-icon {
             margin-right: 12px
         }
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile-section {
+            text-align: center;
+            color: white;
+            font-size: 10px;
+        }
     </style>
 </head>
 
 <body>
     <?php
+
     if (isset($_SESSION['timestamp'])) {
+        $profile = getUserById($_SESSION['user_id']);
     ?>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand nav-link" href="/">TrainSkill</a>
+
+                <div class="navbar-brand d-flex align-items-center me-3">
+                    <a href="/profile" class="text-decoration-none profile-section nav-link">
+                        <img src="<?= $profile['profile_image'] ?>" alt="Profile Image" class="rounded-circle" width="50" height="50">
+                        <!-- <div>ใส่ชื่อไปแล้วมันไม่ค่อยดูดีเท่าไหร</div> -->
+                    </a>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">TrainSkill</a></li>
                         <li class="nav-item"><a class="nav-link" href="/course_create">สร้างกิจกรรม</a></li>
                         <li class="nav-item"><a class="nav-link" href="/course_own">กิจกรรมของคุณ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/profile">ข้อมูลผู้ใช้</a></li>
                         <li class="nav-item"><a class="nav-link" href="/history">ประวัติการเข้าร่วม</a></li>
                     </ul>
 
-                    <form class="d-flex">
-                        <div class="searchbar">
-                            <div class="searchbar-wrapper">
-                                <div class="searchbar-left">
-                                    <div class="search-icon-wrapper">
-                                        <span class="search-icon searchbar-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="searchbar-center">
-                                    <div class="searchbar-input-spacer"></div>
-                                    <input type="search" class="searchbar-input" maxlength="2048" name="q" autocapitalize="off" autocomplete="off" title="Search" role="combobox" placeholder="ชื่อกิจกรรม/วัน">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <div class="btn btn-outline-light ms-2">
-                        <a href="/logout" class="text-light text-decoration-none">ออกจากระบบ</a>
+                    <div class="btn btn-danger ms-2">
+                        <a href="/logout" class="text-decoration-none">ออกจากระบบ</a>
                     </div>
                 </div>
             </div>

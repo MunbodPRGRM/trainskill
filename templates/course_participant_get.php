@@ -12,9 +12,9 @@ foreach ($training as $activity) {
 <div class="container mt-4 content">
     <div class="card p-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3 class="mb-0">รายชื่อผู้เข้าร่วมกิจกรรม <?= $course_name ?></h3>
+            <h3 class="mb-0">เช็กชื่อผู้มาเข้าร่วมกิจกรรม <?=$course_name?></h3>
             <a href="check_participant?course_id=<?= $course_id ?>" class="btn btn-primary">
-                <i class="fas fa-user-check"></i> เช็กชื่อผู้มาเข้าร่วมกิจกรรม
+                <i class="fas fa-user-check"></i> เช็ตชื่อผู้มาเข้าร่วมกิจกรรม
             </a>
         </div>
 

@@ -28,10 +28,8 @@ function logout()
     unset($_SESSION['timestamp']);
 }
 
-function register(String $user_name, String $email, String $password, String $phone_number, String $birthday, String $gender)
-{
+function register(String $user_name, String $email, String $password, String $phone_number, String $birthday, String $gender) {
     $conn = getConnection();
-
     $check_sql = 'SELECT user_id FROM users WHERE email = ?';
     $stmt = $conn->prepare($check_sql);
     $stmt->bind_param('s', $email);
@@ -39,14 +37,17 @@ function register(String $user_name, String $email, String $password, String $ph
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        return false;
+        return false; 
     }
+
+    $profile_image = uploadProfileImage($_FILES['profile_picture']); 
 
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-    $sql = 'INSERT INTO users (user_name, email, password, phone_number, birthday, gender) VALUES (?, ?, ?, ?, ?, ?)';
+    $sql = 'INSERT INTO users (user_name, email, password, phone_number, birthday, gender, profile_image) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)';
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssssss', $user_name, $email, $hashed_password, $phone_number, $birthday, $gender);
+    $stmt->bind_param('sssssss', $user_name, $email, $hashed_password, $phone_number, $birthday, $gender, $profile_image);
     
-    return $stmt->execute();
+    return $stmt->execute(); 
 }

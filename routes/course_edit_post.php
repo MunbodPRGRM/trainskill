@@ -10,8 +10,9 @@ $endDate = $_POST['end_date'];
 $result = editCourse($course_id, $courseName, $description, $max, $startDate, $endDate, $_FILES);
 
 if ($result) {
-    header('Location: /'); 
+    $_SESSION['success'] = 'แก้ไขข้อมูลสำเร็จ';
+    header('Location: /');
+    exit;
 } else {
     echo 'เกิดข้อผิดพลาดในการแก้ไขข้อมูล';
 }
-?>

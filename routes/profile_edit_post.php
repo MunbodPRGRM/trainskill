@@ -1,0 +1,40 @@
+<?php
+$user_id = $_SESSION['user_id'];
+$user_name = $_POST['user_name'];
+$password = $_POST['password'];
+$confirm_password = $_POST['confirm_password'];
+$phone_number = $_POST['phone_number'];
+$birthday = $_POST['birthday'];
+$gender = $_POST['gender'];
+
+$result = getUserById($_SESSION['user_id']);
+
+if (!empty($password) && $password !== $confirm_password) {
+    $_SESSION['error'] = 'รหัสผ่านไม่ตรงกัน';
+    header('location: /profile_edit');
+    exit();
+}
+
+$profile_picture = null;
+if (!empty($_FILES['profile_picture']['name'])) {
+    $profile_picture = updateProfileImage($_FILES['profile_picture'], $user_id);
+    if ($profile_picture === false) {
+        $_SESSION['error'] = 'รูปภาพไม่ถูกต้อง';
+        header('location: /profile_edit');
+        exit();
+    }
+}
+
+$result = editProfile($user_id, $user_name, $password, $phone_number, $birthday, $gender, $profile_picture);
+
+if ($result) {
+    $_SESSION['success'] = 'แก้ไขข้อมูลเรียบร้อย';
+    header('Location: /profile');
+    exit();
+} else {
+    $_SESSION['error'] = 'การอัปเดตข้อมูลล้มเหลว';
+}
+
+renderView('profile_edit_get', ['result' => $result]);
+unset($_SESSION['success']);
+unset($_SESSION['error']);

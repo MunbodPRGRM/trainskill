@@ -158,13 +158,14 @@
             <label for="profile_picture">
                 <img src="" class="profile-picture" id="preview">
             </label>
-                <input class="d-none" type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="preview(event)">
+                
             </div>
         </div>
 
         <div class="form-container">
             <header>Registration Form</header>
-                <form class="form" action="/register" method="post">
+                <form class="form" action="/register" method="post" enctype="multipart/form-data">
+                <input class="d-none" type="file" id="profile_picture" name="profile_picture" accept="image/jpeg, image/png, image/gif" onchange="preview(event)">
                     <div class="input-box">
                         <label for="user_name">ชื่อผู้ใช้</label>
                         <input type="text" id="user_name" name="user_name" required>
@@ -223,14 +224,4 @@
         }
         ?>
 </body>
-
-    <script>
-        function preview(event) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                document.getElementById('preview').src = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-    </script>
 </html>
