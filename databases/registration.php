@@ -1,6 +1,6 @@
 <?php
 
-function getRegistrationsByUserId(int $user_id): mysqli_result|bool
+function getRegistrationsByUserId(int $user_id)
 {
     $conn = getConnection();
     $sql = '
@@ -19,7 +19,7 @@ function getRegistrationsByUserId(int $user_id): mysqli_result|bool
     return $result;
 }
 
-function getRegistrationByCourseId(int $course_id): mysqli_result|bool
+function getRegistrationByCourseId(int $course_id)
 {
     $conn = getConnection();
     $sql = '
@@ -38,7 +38,7 @@ function getRegistrationByCourseId(int $course_id): mysqli_result|bool
     return $result;
 }
 
-function getRegistrationToTraining(int $user_id, int $course_id): mysqli_result|bool
+function getRegistrationToTraining(int $user_id, int $course_id)
 {
     $conn = getConnection();
     $sql = '
@@ -55,7 +55,7 @@ function getRegistrationToTraining(int $user_id, int $course_id): mysqli_result|
     return $result;
 }
 
-function joinCourse(int $course_id, int $user_id): bool
+function joinCourse(int $course_id, int $user_id)
 {
     $conn = getConnection();
     $sql = '
@@ -73,7 +73,7 @@ function joinCourse(int $course_id, int $user_id): bool
     }
 }
 
-function getNumberParticipants(int $course_id): int
+function getNumberParticipants(int $course_id)
 {
     $conn = getConnection();
     $sql = '

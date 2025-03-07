@@ -1,6 +1,6 @@
 <?php
 
-function getCourses(): mysqli_result|bool
+function getCourses()
 {
     $conn = getConnection();
     $sql = '
@@ -16,7 +16,7 @@ function getCourses(): mysqli_result|bool
     return $result;
 }
 
-function getCourseByName(string $course_name): mysqli_result|bool
+function getCourseByName(string $course_name)
 {
     $conn = getConnection();
     $sql = '
@@ -34,7 +34,7 @@ function getCourseByName(string $course_name): mysqli_result|bool
     return $result;
 }
 
-function getCourseById(int $course_id): mysqli_result|bool
+function getCourseById(int $course_id)
 {
     $conn = getConnection();
     $sql = '
@@ -52,7 +52,7 @@ function getCourseById(int $course_id): mysqli_result|bool
     return $result;
 }
 
-function getCourseByUserId(int $user_id): mysqli_result|bool
+function getCourseByUserId(int $user_id)
 {
     $conn = getConnection();
     $sql = '
@@ -90,7 +90,7 @@ function createCourse($courseName, $description, $maxParticipants, $startDate, $
     }
 }
 
-function editCourse(int $course_id, string $course_name, string $description, int $max, string $start_date, string $end_date, $files): bool
+function editCourse(int $course_id, string $course_name, string $description, int $max, string $start_date, string $end_date, $files)
 {
     $conn = getConnection();
 
@@ -112,7 +112,7 @@ function editCourse(int $course_id, string $course_name, string $description, in
     }
 }
 
-function deleteCourse(int $course_id): bool
+function deleteCourse(int $course_id)
 {
     $conn = getConnection();
     $sql = '
@@ -126,7 +126,7 @@ function deleteCourse(int $course_id): bool
     return $result;
 }
 
-function searchCoursesWithSingleInput(string $searchInput): mysqli_result|bool
+function searchCoursesWithSingleInput(string $searchInput)
 {
     $conn = getConnection();
 

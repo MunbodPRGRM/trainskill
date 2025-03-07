@@ -34,7 +34,8 @@ CREATE TABLE registration (
 CREATE TABLE training (
     training_id INT PRIMARY KEY AUTO_INCREMENT,
     registration_id INT NOT NULL,
-    status ENUM('waiting', 'accepted', 'cancelled') NOT NULL,
+    status ENUM('waiting', 'accepted', 'cancelled') NOT NULL DEFAULT 'waiting',
+    attendance ENUM('unknown', 'present', 'absent') DEFAULT 'unknown',
     FOREIGN KEY (registration_id) REFERENCES registration(registration_id) ON DELETE CASCADE
 );
 

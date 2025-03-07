@@ -2,7 +2,7 @@
 
 // จำเอาไว้นะ เพราะเราจะไม่เปลี่ยน table ใน database ดัวนั้นไฟล์ registration กับ training จะต้องใช้พร้อมกัน
 
-function getTrainingByCourseId($courseId): mysqli_result|bool
+function getTrainingByCourseId($courseId)
 {
     $conn = getConnection();
     $sql = '
@@ -23,7 +23,7 @@ function getTrainingByCourseId($courseId): mysqli_result|bool
     return $result;
 }
 
-function getTrainingByRegistrationId($registrationId): mysqli_result|bool
+function getTrainingByRegistrationId($registrationId)
 {
     $conn = getConnection();
     $sql = '
@@ -43,7 +43,7 @@ function getTrainingByRegistrationId($registrationId): mysqli_result|bool
     return $result;
 }
 
-function getTrainingByUserId(int $user_id): mysqli_result|bool
+function getTrainingByUserId(int $user_id)
 {
     $conn = getConnection();
     $sql = '
@@ -63,7 +63,7 @@ function getTrainingByUserId(int $user_id): mysqli_result|bool
     return $result;
 }
 
-function createTraining(int $registrationId): bool
+function createTraining(int $registrationId)
 {
     $conn = getConnection();
     $sql = '
@@ -78,7 +78,7 @@ function createTraining(int $registrationId): bool
     return $result;
 }
 
-function updateStatus($user_id, $course_id, $status): bool
+function updateStatus($user_id, $course_id, $status)
 {
     $conn = getConnection();
     $sql = '
@@ -89,6 +89,23 @@ function updateStatus($user_id, $course_id, $status): bool
     ';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('sii', $status, $user_id, $course_id);
+
+    $result = $stmt->execute();
+
+    return $result;
+}
+
+function updateAttendance($user_id, $course_id, $attendance)
+{
+    $conn = getConnection();
+    $sql = '
+        UPDATE training t
+        INNER JOIN registration r ON t.registration_id = r.registration_id
+        SET t.attendance = ?
+        WHERE r.user_id = ? AND r.course_id = ?;
+    ';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sii', $attendance, $user_id, $course_id);
 
     $result = $stmt->execute();
 

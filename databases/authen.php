@@ -1,6 +1,6 @@
 <?php
 
-function login(String $email, String $password): array|bool
+function login(String $email, String $password)
 {
     $conn = getConnection();
     $sql = 'SELECT * FROM users WHERE email = ?';
@@ -23,12 +23,12 @@ function login(String $email, String $password): array|bool
     }
 }
 
-function logout(): void
+function logout()
 {
     unset($_SESSION['timestamp']);
 }
 
-function register(String $user_name, String $email, String $password, String $phone_number, String $birthday, String $gender): bool
+function register(String $user_name, String $email, String $password, String $phone_number, String $birthday, String $gender)
 {
     $conn = getConnection();
 

@@ -1,6 +1,6 @@
 <?php
 
-function getUserById(int $id): array|bool
+function getUserById(int $id)
 {
     $conn = getConnection();
     $sql = 'select * from users where user_id = ?';
