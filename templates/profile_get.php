@@ -31,7 +31,13 @@ if (isset($_SESSION['success'])) {
                 <p><strong>ID ผู้ใช้:</strong> <?= $data['result']['user_id'] ?></p>
                 <p><strong>ชื่อผู้ใช้:</strong> <?= $data['result']['user_name'] ?></p>
                 <p><strong>อีเมล:</strong> <?= $data['result']['email'] ?></p>
-                <p><strong>เพศ:</strong> <?= $data['result']['gender'] ?></p>
+                <p><strong>เพศ:</strong> <?php if($data['result']['gender'] === 'male') {
+                    echo 'ชาย';
+                } else if($data['result']['gender'] === 'female') {
+                    echo 'หญิง';
+                } else {
+                    echo 'ไม่ระบุ';
+                } ?></p>
                 <p><strong>วันเกิด:</strong> <?= $data['result']['birthday'] ?></p>
                 <p><strong>เบอร์โทรศัพท์:</strong> <?= $data['result']['phone_number'] ?></p>
             </div>

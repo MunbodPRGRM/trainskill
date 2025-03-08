@@ -13,27 +13,36 @@
             display: flex;
             flex-direction: column;
         }
+
         .container {
             flex: 1;
         }
+
         body {
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* ทำให้หน้าผู้ใช้มีความสูงเต็มจอ */
+            min-height: 100vh;
+            /* ทำให้หน้าผู้ใช้มีความสูงเต็มจอ */
         }
+
         footer {
-            margin-top: auto; /* ใช้ auto margin ให้ footer อยู่ด้านล่างสุด */
+            margin-top: auto;
+            /* ใช้ auto margin ให้ footer อยู่ด้านล่างสุด */
             width: 100%;
             background-color: #333;
             color: white;
             text-align: center;
         }
-        .navbar a, .navbar button {
-            color: white!important;
+
+        .navbar a,
+        .navbar button {
+            color: white !important;
         }
+
         .nav-link.active {
-            color: gold!important;
+            color: gold !important;
         }
+
         .searchbar {
             font-size: 14px;
             font-family: arial, sans-serif;
@@ -49,15 +58,18 @@
             width: auto;
             width: 600px;
         }
+
         .searchbar:hover {
             box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
-            border-color: rgba(223,225,229,0);
+            border-color: rgba(223, 225, 229, 0);
         }
+
         .searchbar-wrapper {
             flex: 1;
             display: flex;
             padding: 5px 8px 0 14px;
         }
+
         .searchbar-left {
             font-size: 14px;
             font-family: arial, sans-serif;
@@ -67,9 +79,11 @@
             padding-right: 13px;
             margin-top: -5px;
         }
+
         .search-icon-wrapper {
             margin: auto;
         }
+
         .search-icon {
             margin-top: 3px;
             color: #9aa0a6;
@@ -77,6 +91,7 @@
             line-height: 20px;
             width: 20px;
         }
+
         .searchbar-icon {
             display: inline-block;
             fill: currentColor;
@@ -85,11 +100,13 @@
             position: relative;
             width: 24px;
         }
+
         .searchbar-center {
             display: flex;
             flex: 1;
             flex-wrap: wrap;
         }
+
         .searchbar-input-spacer {
             color: transparent;
             flex: 100%;
@@ -97,6 +114,7 @@
             height: 34px;
             font-size: 16px;
         }
+
         .searchbar-input {
             background-color: transparent;
             border: none;
@@ -113,6 +131,7 @@
             max-width: 100%;
             width: 100%;
         }
+
         .searchbar-right {
             display: flex;
             flex: 0 0 auto;
@@ -120,15 +139,18 @@
             align-items: stretch;
             flex-direction: row
         }
+
         .searchbar-clear-icon {
             margin-right: 12px
         }
+
         .profile-img {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
         }
+
         .profile-section {
             text-align: center;
             color: white;
@@ -157,10 +179,10 @@
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
+
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">TrainSkill</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/">TrainSkill</a></li>
                         <li class="nav-item"><a class="nav-link" href="/course_create">สร้างกิจกรรม</a></li>
                         <li class="nav-item"><a class="nav-link" href="/course_own">กิจกรรมของคุณ</a></li>
                         <li class="nav-item"><a class="nav-link" href="/history">ประวัติการเข้าร่วม</a></li>

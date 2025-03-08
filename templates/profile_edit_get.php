@@ -242,17 +242,17 @@ if (isset($_SESSION['error'])) {
                         <div class="gender">
                             <input name="gender" id="check-male" type="radio" value="male"
                                 <?= $data['result']['gender'] && $data['result']['gender'] == 'male' ? 'checked' : '' ?>>
-                            <label for="check-male">male</label>
+                            <label for="check-male">ชาย</label>
                         </div>
                         <div class="gender">
                             <input name="gender" id="check-female" type="radio" value="female"
                                 <?= $data['result']['gender'] && $data['result']['gender'] == 'female' ? 'checked' : '' ?>>
-                            <label for="check-female">female</label>
+                            <label for="check-female">หญิง</label>
                         </div>
                         <div class="gender">
                             <input name="gender" id="check-other" type="radio" value="unknown"
                                 <?= $data['result']['gender'] && $data['result']['gender'] == 'unknown' ? 'checked' : '' ?>>
-                            <label for="check-other">unknown</label>
+                            <label for="check-other">ไม่ระบุ</label>
                         </div>
                     </div>
                 </div>

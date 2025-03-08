@@ -83,11 +83,21 @@ if (isset($_SESSION['timestamp'])) {
 
                                 <?php
                                 if ($activity['status'] == 'waiting') {
-                                    echo '<button class="btn btn-secondary">สถานะ: ' . $activity['status'] . '</button>';
+                                    echo '<button class="btn btn-secondary">สถานะ: กำลังรอการตอบรับ</button>';
                                 } else if ($activity['status'] == 'accepted') {
-                                    echo '<button class="btn btn-success">สถานะ: ' . $activity['status'] . '</button>';
+                                    echo '<button class="btn btn-success">สถานะ: เข้าร่วมได้</button>';
                                 } else if ($activity['status'] == 'cancelled') {
-                                    echo '<button class="btn btn-danger">สถานะ: ' . $activity['status'] . '</button>';
+                                    echo '<button class="btn btn-danger">สถานะ: ไม่ให้เข้าร่วม</button>';
+                                }
+                                ?>
+
+                                <?php
+                                if ($activity['attendance'] == 'present') {
+                                    echo '<button class="btn btn-success">เช็กชื่อ: เข้าร่วมกิจกรรม</button>';
+                                } else if ($activity['attendance'] == 'absent') {
+                                    echo '<button class="btn btn-danger">เช็กชื่อ: ไม่เข้าร่วมกิจกรรม</button>';
+                                } else {
+                                    echo '<button class="btn btn-secondary">เช็กชื่อ: ยังไม่ได้เข้าร่วมกิจกรรม</button>';
                                 }
                                 ?>
                             </div>
