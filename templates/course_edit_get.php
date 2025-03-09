@@ -104,10 +104,10 @@ $images = $courseDetails ? $courseDetails['images'] : [];
                     <div class="col-12 col-md-4">
                         <label for="image<?= $i ?>" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload">
                             <img id="preview-image<?= $i ?>" class="w-100 h-100 object-fit-cover <?= empty($images[$i]) ? 'd-none' : '' ?>" 
-                            src="($images[$i]) ?>" 
+                            src="<?= $images[$i] ?>" 
                             alt="รูปที่ <?= $i ?>">
                         </label>
-                        <input type="file" id="image<?= $i ?>" name="image<?= $i ?>" class="d-none" onchange="previewImage(this, 'preview-image<?= $i ?>')">
+                    <input type="file" id="image<?= $i ?>" name="image<?= $i ?>" class="d-none" onchange="previewImage(this, 'preview-image<?= $i ?>')">
                     </div>
                 <?php } ?>
             </div>
