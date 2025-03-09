@@ -192,34 +192,30 @@ function deleteImage($course_id) {
 }
 
 function uploadProfileImage($file) {
-    $targetDIR = realpath(__DIR__ . "/../public/uploads/") . "/";
+    $uploadDir = realpath(__DIR__ . "/../public/uploads/") . "/";
     $allowTypes = ['jpg', 'jpeg', 'png', 'gif'];
 
-    $profile_image = null;
+    $fileName = time() . "_" . basename($file["name"]);
+    $fileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
-    if (!empty($file["name"])) {
-        $fileName = time() . "_" . basename($file["name"]);
-        $fileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-
-        if (in_array($fileType, $allowTypes)) {
-            $targetFilePath = $targetDIR . $fileName;
-
-            if (move_uploaded_file($file["tmp_name"], $targetFilePath)) {
-                return $fileName;
-            } else {
-                error_log("Error uploading the file.");
-            }
-        } else {
-            error_log("Unsupported file type: " . $fileType);
-        }
+    if (!in_array($fileType, $allowTypes)) {
+        error_log("Unsupported file type: " . $fileType);
+        return "Unknown_person.jpg"; 
     }
 
-    return "Unknown_person.jpg"; 
+    $targetFilePath = $uploadDir . $fileName;
+
+    if (move_uploaded_file($file["tmp_name"], $targetFilePath)) {
+        return $fileName;
+    } else {
+        error_log("Error uploading the file.");
+        return "Unknown_person.jpg";
+    }
 }
 
 function updateProfileImage($file, $user_id) {
     $targetDIR = __DIR__ . "/../public/uploads/";
-    $allowedTypes = ['jpg', 'jpeg', 'png'];
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
 
     $fileName = time() . "_" . basename($file["name"]);
     $targetFilePath = $targetDIR . $fileName;
@@ -251,4 +247,27 @@ function updateProfileImage($file, $user_id) {
         $_SESSION['error'] = 'ไฟล์ไม่รองรับ';
         return false;
     }
+}
+
+function copyDefaultProfileImage() {
+    $defaultImage = "Unknown_person.jpg";
+    $sourcePath = __DIR__ . "/../public/" . $defaultImage;
+    $uploadDir = realpath(__DIR__ . "/../public/uploads/") . "/";
+
+    // สร้างชื่อไฟล์ที่ไม่ซ้ำ
+    $fileCounter = 1;
+    $newFileName = $defaultImage;
+
+    while (file_exists($uploadDir . $newFileName)) {
+        $newFileName = "Unknown_person_" . $fileCounter . ".jpg";
+        $fileCounter++;
+    }
+
+    // คัดลอกไฟล์ไปยัง uploads/
+    if (!copy($sourcePath, $uploadDir . $newFileName)) {
+        error_log("Failed to copy default profile image.");
+        return $defaultImage;
+    }
+
+    return $newFileName;
 }

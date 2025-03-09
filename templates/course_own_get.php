@@ -1,5 +1,13 @@
 <head>
     <title>TrainSkill-กิจกรรมของคุณ</title>
+    <style>
+        .course-images img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            max-height: 150px; /* ควบคุมความสูงให้คงที่ */
+        }
+    </style>
 </head>
 <?php
 $searchInput = isset($_GET['q']) ? $_GET['q'] : null;
@@ -59,7 +67,7 @@ if (isset($_SESSION['timestamp'])) {
                                     if (!empty($images)) {
                                         echo "<div class='course-images'>";
                                         foreach ($images as $imageURL) {
-                                            echo "<img src='$imageURL' class='img-fluid rounded-start' alt='กิจกรรม'>";
+                                            echo "<img src='$imageURL' class='img-fluid rounded-start course-images' alt='กิจกรรม'>";
                                         }
                                         echo "</div>";
                                     } else {

@@ -77,9 +77,11 @@ function getNumberParticipants(int $course_id)
 {
     $conn = getConnection();
     $sql = '
-        SELECT COUNT(*) as count
-        FROM registration
-        WHERE course_id = ?
+        SELECT COUNT(*) as num_participants
+        FROM training t
+        INNER JOIN registration r ON t.registration_id = r.registration_id
+        WHERE r.course_id = ?
+        AND t.status = "accepted";
     ';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $course_id);
@@ -88,5 +90,5 @@ function getNumberParticipants(int $course_id)
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
-    return $row['count'];
+    return $row['num_participants'];
 }

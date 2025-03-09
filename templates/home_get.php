@@ -1,7 +1,3 @@
-<head>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-
 <?php
 $searchInput = isset($_GET['q']) ? $_GET['q'] : null;
 $courses = [];
@@ -38,9 +34,18 @@ if (isset($_SESSION['timestamp'])) {
     }
 ?>
 
-    <head>
-        <title>TrainSkill</title>
-    </head>
+<head>
+    <title>TrainSkill</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .course-images img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            max-height: 150px; /* ควบคุมความสูงให้คงที่ */
+        }
+    </style>
+</head>
     
     <div class="container mt-4">
         <form class="d-flex mb-4">
@@ -80,7 +85,7 @@ if (isset($_SESSION['timestamp'])) {
                                     if (!empty($images)) {
                                         echo "<div class='course-images'>";
                                         foreach ($images as $imageURL) {
-                                            echo "<img src='$imageURL' class='img-fluid rounded-start' alt='กิจกรรม'>";
+                                            echo "<img src='$imageURL' class='img-fluid rounded-start course-images' alt='กิจกรรม'>";
                                         }
                                         echo "</div>";
                                     } else {

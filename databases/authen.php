@@ -30,7 +30,7 @@ function logout()
 
 function register(String $user_name, String $email, String $password, String $phone_number, String $birthday, String $gender, $file = null) {
     $conn = getConnection();
-    $check_sql = 'SELECT user_id FROM users WHERE email = ?';
+    $check_sql = 'SELECT user_id FROM users WHERE email = ? LIMIT 1';
     $stmt = $conn->prepare($check_sql);
     $stmt->bind_param('s', $email);
     $stmt->execute();
@@ -40,29 +40,7 @@ function register(String $user_name, String $email, String $password, String $ph
         return false; 
     }
 
-    // ถ้ามีไฟล์อัปโหลด ให้ใช้ฟังก์ชันอัปโหลด
-    if ($file && !empty($file["name"])) {
-        $profile_image = uploadProfileImage($file);
-    } else {
-        // ถ้าไม่มีไฟล์อัปโหลด ให้ใช้ unknown_person.jpg
-        $defaultImage = "Unknown_person.jpg";
-        $defaultPath = __DIR__ . "/../public/" . $defaultImage; // ไฟล์ต้นฉบับ
-        $uploadPath = __DIR__ . "/../public/uploads/" . $defaultImage; // ปลายทาง
-
-        // ตรวจสอบว่ามีไฟล์อยู่แล้วหรือไม่
-        $newFileName = "Unknown_person.jpg"; // ตั้งค่าเริ่มต้น
-        $fileCounter = 1;
-        
-        while (file_exists(__DIR__ . "/../public/uploads/" . $newFileName)) {
-            $newFileName = "Unknown_person_" . $fileCounter . ".jpg";
-            $fileCounter++;
-        }
-
-        // คัดลอกไฟล์ไปยัง uploads/ โดยใช้ชื่อไฟล์ที่ไม่ซ้ำ
-        copy($defaultPath, __DIR__ . "/../public/uploads/" . $newFileName);
-
-        $profile_image = $newFileName;
-    }
+    $profile_image = ($file && !empty($file["name"])) ? uploadProfileImage($file) : copyDefaultProfileImage();
 
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
@@ -100,4 +78,35 @@ function updatePassword(String $email, String $password)
     } else {
         return false;  
     }
+}
+
+function generateCSRFToken() {
+    if (!isset($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+function verifyCSRFToken($token) {
+    return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+}
+
+function rateLimit($ip) {
+    $maxAttempts = 5; 
+    $timeFrame = 15 * 60; // 15 นาที
+
+    if (!isset($_SESSION['login_attempts'])) {
+        $_SESSION['login_attempts'] = [];
+    }
+
+    $_SESSION['login_attempts'] = array_filter($_SESSION['login_attempts'], function ($timestamp) use ($timeFrame) {
+        return $timestamp > time() - $timeFrame;
+    });
+
+    if (count($_SESSION['login_attempts']) >= $maxAttempts) {
+        return false; // บล็อกการสมัคร
+    }
+
+    $_SESSION['login_attempts'][] = time();
+    return true;
 }

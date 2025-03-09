@@ -14,18 +14,15 @@
             display: flex;
             flex-direction: column;
         }
-
         .container {
             flex: 1;
         }
-
         body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             /* ทำให้หน้าผู้ใช้มีความสูงเต็มจอ */
         }
-
         footer {
             margin-top: auto;
             /* ใช้ auto margin ให้ footer อยู่ด้านล่างสุด */
@@ -34,16 +31,30 @@
             color: white;
             text-align: center;
         }
-
         .navbar a,
         .navbar button {
-            color: white !important;
+            color: white;
         }
-
         .nav-link.active {
             color: gold !important;
         }
-
+        .navbar-nav .nav-item .nav-link {
+            position: relative;
+            /* padding-bottom: 5px; */
+        }
+        .navbar-nav .nav-item .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: width 0.5s ease-in-out; /* ค่อย ๆ ขึ้น */
+        }
+        .navbar-nav .nav-item .nav-link:hover::before {
+            width: 100%; /* เมื่อ hover ขยายเส้นให้เต็ม */
+        }
         .searchbar {
             font-size: 14px;
             font-family: arial, sans-serif;
@@ -59,18 +70,15 @@
             width: auto;
             width: 600px;
         }
-
         .searchbar:hover {
             box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
             border-color: rgba(223, 225, 229, 0);
         }
-
         .searchbar-wrapper {
             flex: 1;
             display: flex;
             padding: 5px 8px 0 14px;
         }
-
         .searchbar-left {
             font-size: 14px;
             font-family: arial, sans-serif;
@@ -80,11 +88,9 @@
             padding-right: 13px;
             margin-top: -5px;
         }
-
         .search-icon-wrapper {
             margin: auto;
         }
-
         .search-icon {
             margin-top: 3px;
             color: #9aa0a6;
@@ -92,7 +98,6 @@
             line-height: 20px;
             width: 20px;
         }
-
         .searchbar-icon {
             display: inline-block;
             fill: currentColor;
@@ -101,13 +106,11 @@
             position: relative;
             width: 24px;
         }
-
         .searchbar-center {
             display: flex;
             flex: 1;
             flex-wrap: wrap;
         }
-
         .searchbar-input-spacer {
             color: transparent;
             flex: 100%;
@@ -115,7 +118,6 @@
             height: 34px;
             font-size: 16px;
         }
-
         .searchbar-input {
             background-color: transparent;
             border: none;
@@ -132,7 +134,6 @@
             max-width: 100%;
             width: 100%;
         }
-
         .searchbar-right {
             display: flex;
             flex: 0 0 auto;
@@ -140,22 +141,24 @@
             align-items: stretch;
             flex-direction: row
         }
-
         .searchbar-clear-icon {
             margin-right: 12px
         }
-
         .profile-img {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             object-fit: cover;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
         .profile-section {
             text-align: center;
             color: white;
-            font-size: 10px;
+            font-size: 12px;
+        }
+        img.rounded-circle {
+            object-fit: cover;
         }
     </style>
 </head>
@@ -171,7 +174,7 @@
 
                 <div class="navbar-brand d-flex align-items-center me-3">
                     <a href="/profile" class="text-decoration-none profile-section nav-link">
-                        <img src="<?= $profile['profile_image'] ?>" alt="Profile Image" class="rounded-circle" width="50" height="50">
+                        <img src="<?= $profile['profile_image'] ?>" alt="Profile Image" class="profile-img rounded-circle" width="50" height="50">
                         <!-- <div>ใส่ชื่อไปแล้วมันไม่ค่อยดูดีเท่าไหร</div> -->
                     </a>
                 </div>

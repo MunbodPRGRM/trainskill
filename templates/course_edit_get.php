@@ -1,28 +1,42 @@
 <head>
     <title>TrainSkill-แก้ไขกิจกรรม</title>
     <style>
-        /* เริ่มต้นสำหรับอุปกรณ์ที่มีหน้าจอขนาดใหญ่ */
-        .image-upload-titel {
-            height: 344px;
+        .image-upload-titel, .image-upload {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #ddd; /* ให้มีสีพื้นหลัง */
+        }
+        .image-upload-titel img, .image-upload img {
             width: 100%;
-            cursor: pointer;
+            height: 100%;
+            object-fit: cover;
+        }
+        .image-upload-titel {
+            min-height: 344px; /* ควบคุมขนาด */
+            max-height: 344px;
+            width: 644px;
         }
         .image-upload {
-            height: 225.5px;
-            width: 100%;
-            cursor: pointer;
+            min-height: 225.5px;
+            max-height: 225.5px;
         }
-        /* ปรับขนาดสำหรับอุปกรณ์มือถือ */
-        @media (max-width: 768px) {
-            .image-upload {
-                height: 150px; /* ปรับให้เหมาะสมในมือถือ */
-                width: 100%;
-                cursor: pointer;
+        /* สำหรับมือถือ */
+        @media (max-width: 766px) {
+            .image-upload-titel, .image-upload {
+                min-height: 150px;
+                max-height: 150px;
             }
+        }
+        @media (min-width: 767px) and (max-width: 768px) {
             .image-upload-titel {
-                height: 150px;
-                width: 100%;
-                cursor: pointer;
+                min-height: 300px;
+                max-height: 300px;
+            }
+            .image-upload {
+                min-height: 150px;
+                max-height: 150px;
             }
         }
         #description {
@@ -46,21 +60,15 @@ $images = $courseDetails ? $courseDetails['images'] : [];
         <form action="/course_edit" method="post" enctype="multipart/form-data">
             <div class="row">
                 <input type="hidden" name="course_id" value="<?= $activity['course_id'] ?>">
-                <!-- อัปโหลดรูปหลัก -->
-                <div class="col-12 col-md-6 d-flex align-items-center justify-content-center mb-3 mb-md-0">
-                    <label for="image1" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload-titel">
-                        <?php
-                            if (!empty($images[1])) {
-                                echo "<div class='course-images'>";
-                                echo "<img id='preview-image1' src='{$images[1]}' class='w-100 h-100 object-fit-cover' alt='กิจกรรม'>";
-                                echo "</div>";
-                            } else {
-                                echo "<p>ไม่มีรูปภาพสำหรับคอร์สนี้</p>";
-                            }
-                        ?>
-                    </label>
-                    <input type="file" id="image1" name="image1" class="d-none" accept="image/jpeg, image/png" onchange="previewImage(this, 'preview-image1')">
-                </div>
+                    <!-- อัปโหลดรูปหลัก -->
+                    <div class="col-12 col-md-6 d-flex align-items-center justify-content-center mb-3 mb-md-0">
+                        <label for="image1" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload-titel">
+                            <img id="preview-image1" class="w-100 h-100 object-fit-cover <?= empty($images[1]) ? 'd-none' : '' ?>"
+                            src="<?= ($images[1]) ?>" 
+                            alt="กิจกรรม">
+                        </label>
+                        <input type="file" id="image1" name="image1" class="d-none" onchange="previewImage(this, 'preview-image1')">
+                    </div>
 
                 <div class="col-12 col-md-6">
                     <div class="mb-2">
@@ -92,15 +100,15 @@ $images = $courseDetails ? $courseDetails['images'] : [];
 
             <!-- อัปโหลดรูปเพิ่มเติม -->
             <div class="row mt-3">
-                <?php
-                    for ($i = 2; $i <= 4; $i++) { ?>
-                        <div class="col-12 col-md-4">
-                            <label for="image<?= $i ?>" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload">
-                                <img id="preview-image<?= $i ?>" class="img-fluid <?= empty($images[$i]) ? 'd-none' : '' ?>" src="<?= !empty($images[$i]) ? $images[$i] : '' ?>" alt="รูปที่ <?= $i ?>">
-                                <?php if (empty($images[$i])) { echo "<p>เพิ่มรูปที่ {$i}</p>"; } ?>
-                            </label>
-                            <input type="file" id="image<?= $i ?>" name="image<?= $i ?>" class="d-none" onchange="previewImage(this, 'preview-image<?= $i ?>')">
-                        </div>
+                <?php for ($i = 2; $i <= 4; $i++) { ?>
+                    <div class="col-12 col-md-4">
+                        <label for="image<?= $i ?>" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload">
+                            <img id="preview-image<?= $i ?>" class="w-100 h-100 object-fit-cover <?= empty($images[$i]) ? 'd-none' : '' ?>" 
+                            src="($images[$i]) ?>" 
+                            alt="รูปที่ <?= $i ?>">
+                        </label>
+                        <input type="file" id="image<?= $i ?>" name="image<?= $i ?>" class="d-none" onchange="previewImage(this, 'preview-image<?= $i ?>')">
+                    </div>
                 <?php } ?>
             </div>
 

@@ -27,7 +27,7 @@ foreach ($training as $activity) {
                 <thead class="table-dark">
                     <tr>
                         <th>ชื่อกิจกรรม</th>
-                        <!-- <th>UserID</th> -->
+                        <th>UserID</th>
                         <th>ชื่อ</th>
                         <th>อีเมล</th>
                         <th>เพศ</th>
@@ -40,7 +40,7 @@ foreach ($training as $activity) {
                     <?php foreach ($training as $activity): ?>
                         <tr>
                             <td><?= $activity['course_name'] ?></td>
-                            <!-- <td><?= $activity['user_id'] ?></td> -->
+                            <td><?= $activity['user_id'] ?></td>
                             <td><?= $activity['user_name'] ?></td>
                             <td><?= $activity['email'] ?></td>
                             <td><?= $activity['gender'] ?></td>

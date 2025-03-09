@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrainSkill-สมัครสมาชิก</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .container {
             /* position: relative;
@@ -19,6 +21,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .container header {
             font-size: 1.2rem;
             color: #000;
@@ -26,6 +29,7 @@
             text-align: center;
             margin-top: -10px;
         }
+
         .container .form {
             margin-top: 15px;
         }
@@ -38,6 +42,7 @@
         .input-box label {
             color: #000;
         }
+
         .form :where(.input-box input, .select-box) {
             position: relative;
             height: 35px;
@@ -51,34 +56,43 @@
             padding: 0 15px;
             background: rgb(255, 255, 255);
         }
+
         .input-box input:focus {
             box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
         }
+
         .form .column {
             display: flex;
             column-gap: 15px;
         }
+
         .form .gender-box {
             margin-top: 10px;
         }
+
         .form :where(.gender-option, .gender) {
             display: flex;
             align-items: center;
             column-gap: 50px;
             flex-wrap: wrap;
         }
+
         .form .gender {
             column-gap: 5px;
         }
+
         .gender input {
             accent-color: rgb(14, 29, 100)
         }
+
         .form :where(.gender input, .gender label) {
             cursor: pointer;
         }
+
         .gender label {
             color: #000;
         }
+
         .form button {
             height: 40px;
             width: 100%;
@@ -90,6 +104,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
+
         .profile-container {
             display: flex;
             flex-direction: column;
@@ -98,9 +113,10 @@
             padding: 20px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             max-width: 500px;
-            height: 620px;
+            height: 710px;
             width: 100%;
         }
+
         .profile-picture {
             width: 150px;
             height: 150px;
@@ -108,67 +124,101 @@
             border: 2px solid rgb(255, 255, 255);
             object-fit: cover;
         }
+
         .form-container {
             max-width: 500px;
-            height: 620px;
+            height: 710px;
             width: 100%;
             background: white;
             padding: 30px;
         }
+
         /* ปรับแต่งให้ popup ปรากฏขึ้นที่ด้านบน */
         .popup-message {
             position: fixed;
-            margin-top: 40px;
-            top: 10px; /* ตำแหน่งจากด้านบนของหน้า */
+            top: 10px;
+            /* ตำแหน่งจากด้านบนของหน้า */
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1050; /* ให้ popup อยู่ข้างบนสุด */
+            z-index: 1050;
+            /* ให้ popup อยู่ข้างบนสุด */
             max-width: 300px;
             width: 100%;
             padding: 10px 20px;
-            background-color:rgb(220, 72, 72); /* สีพื้นหลัง (สีเขียว) */
+            background-color: rgb(220, 72, 72);
+            /* สีพื้นหลัง (สีเขียว) */
             color: white;
             border-radius: 5px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            display: none; /* ซ่อนก่อน */
-            opacity: 0; /* ซ่อนก่อน */
-            transition: opacity 0.3s ease, top 0.3s ease; /* ทำให้แสดงอย่างค่อยเป็นค่อยไป */
+            display: none;
+            /* ซ่อนก่อน */
+            opacity: 0;
+            /* ซ่อนก่อน */
+            transition: opacity 0.3s ease, top 0.3s ease;
+            /* ทำให้แสดงอย่างค่อยเป็นค่อยไป */
         }
+
         /* แสดงผลเมื่อ popup ถูกแสดง */
         .popup-message.show {
             display: block;
             opacity: 1;
-            top: 20px; /* ปรับให้ขึ้นมาจากด้านบน */
+            top: 20px;
+            /* ปรับให้ขึ้นมาจากด้านบน */
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-container input {
+            width: 100%;
+            padding-right: 40px;
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: gray;
         }
 
         @media (max-width: 766px) {
             body {
                 padding-top: 40px;
             }
+
             .container {
                 flex-direction: column;
                 /* จัดวางให้เป็นแนวตั้ง */
             }
+
             .profile-container {
                 width: 100%;
                 height: 200px;
             }
+
             .form-container {
                 width: 100%;
                 height: auto;
                 padding: 20px;
                 margin-bottom: 50px;
             }
+
             .profile-picture {
                 width: 120px;
                 /* ปรับขนาดรูปโปรไฟล์ให้พอดี */
                 height: 120px;
             }
+
             .form .column {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
             }
+
             .popup-message {
                 margin-top: 20px;
                 max-width: 240px;
@@ -180,27 +230,32 @@
             body {
                 padding-top: 40px;
             }
+
             .profile-container {
                 width: 100%;
-                height: 680px;
+                height: 780px;
                 margin-bottom: 50px;
             }
+
             .form-container {
                 width: 100%;
-                height: 680px;
+                height: 780px;
                 padding: 20px;
                 margin-bottom: 50px;
             }
+
             .profile-picture {
                 width: 120px;
                 /* ปรับขนาดรูปโปรไฟล์ให้พอดี */
                 height: 120px;
             }
+
             .form .column {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
             }
+
             .popup-message {
                 margin-top: 20px;
             }
@@ -222,6 +277,7 @@
             <header>Registration Form</header>
             <form class="form" action="/register" method="post" enctype="multipart/form-data">
                 <input class="d-none" type="file" id="profile_picture" name="profile_picture" accept="image/jpeg, image/png, image/gif" onchange="preview(event)">
+                <input type="hidden" name="csrf_token" value="<?= generateCSRFToken(); ?>">
                 <div class="input-box">
                     <label for="user_name">ชื่อผู้ใช้</label>
                     <input type="text" id="user_name" name="user_name" required>
@@ -255,17 +311,25 @@
                 </div>
                 <div class="input-box">
                     <label for="email" class="form-label">อีเมล</label>
-                    <input type="email" id="email" name="email" class="form-control" required>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="exemple@gmail.com" required>
                 </div>
 
                 <div class="input-box">
                     <label for="password" class="form-label">รหัสผ่าน</label>
-                    <input type="password" id="password" name="password" class="form-control" required>
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="รหัสต้องมี A-Z, a-z, !@ และ 0-9" required>
+                        <i class="fa fa-eye eye-icon" id="eyeIcon1"></i>
+                    </div>
                 </div>
                 <div class="input-box">
                     <label for="confirm_password" class="form-label">ยืนยันรหัสผ่าน</label>
-                    <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                    <div class="password-container">
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="รหัสต้องมี A-Z, a-z, !@ และ 0-9" required>
+                        <i class="fa fa-eye eye-icon" id="eyeIcon2"></i>
+                    </div>
                 </div>
+
+                <div class="g-recaptcha mt-3" style="display: flex; justify-content: center; align-items: center;" data-sitekey="6LeWWu4qAAAAAEIdK2SwQaN0ycthdqp5tjmiVyuL"></div>
 
                 <button type="submit" class="btn btn-primary w-100">สมัคร</button>
             </form>
@@ -274,27 +338,78 @@
     </section>
 
     <?php
-        if (isset($_SESSION['message'])):
-            $message = $_SESSION['message'];
-            unset($_SESSION['message']);
-        ?>
+    if (isset($_SESSION['message'])):
+        $message = $_SESSION['message'];
+        unset($_SESSION['message']);
+    ?>
         <div id="popupMessage" class="popup-message text-center">
             ❌ <?= $message; ?>
         </div>
-
-        <script>
-            // ใช้ JavaScript สำหรับแสดง popup เมื่อข้อความมีค่า
-            document.addEventListener("DOMContentLoaded", function() {
-                var popup = document.getElementById('popupMessage');
-                popup.classList.add('show');
-                
-                // ซ่อน popup หลังจาก 3 วินาที
-                setTimeout(function() {
-                    popup.classList.remove('show');
-                }, 3000); // 3000 ms = 3 วินาที
-            });
-        </script>
     <?php endif; ?>
+
+    <script src="public\script.js"></script>
+    <script>
+        function togglePassword(inputId, eyeIconId) {
+            let passwordInput = document.getElementById(inputId);
+            let eyeIcon = document.getElementById(eyeIconId);
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text"; // แสดงรหัสผ่าน
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash"); // เปลี่ยนไอคอนเป็นซ่อน
+            } else {
+                passwordInput.type = "password"; // ซ่อนรหัสผ่าน
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye"); // เปลี่ยนไอคอนเป็นแสดง
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("JavaScript Loaded"); // เช็คว่า JS โหลดหรือไม่
+
+            function togglePassword(inputId, eyeIconId) {
+                let passwordInput = document.getElementById(inputId);
+                let eyeIcon = document.getElementById(eyeIconId);
+
+                if (!passwordInput || !eyeIcon) {
+                    console.log("Error: ไม่พบ element ที่กำหนด");
+                    return;
+                }
+
+                console.log("Toggle password:", inputId);
+
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    eyeIcon.classList.remove("fa-eye");
+                    eyeIcon.classList.add("fa-eye-slash");
+                } else {
+                    passwordInput.type = "password";
+                    eyeIcon.classList.remove("fa-eye-slash");
+                    eyeIcon.classList.add("fa-eye");
+                }
+            }
+
+            let eyeIcon1 = document.getElementById("eyeIcon1");
+            let eyeIcon2 = document.getElementById("eyeIcon2");
+
+            if (eyeIcon1) {
+                eyeIcon1.addEventListener("click", function() {
+                    togglePassword("password", "eyeIcon1");
+                });
+            } else {
+                console.log("Error: ไม่พบ eyeIcon1");
+            }
+
+            if (eyeIcon2) {
+                eyeIcon2.addEventListener("click", function() {
+                    togglePassword("confirm_password", "eyeIcon2");
+                });
+            } else {
+                console.log("Error: ไม่พบ eyeIcon2");
+            }
+        });
+    </script>
+
 </body>
 
 </html>

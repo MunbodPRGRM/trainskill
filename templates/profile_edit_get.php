@@ -1,6 +1,7 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .container {
             /* position: relative;
@@ -15,6 +16,7 @@
             align-items: center;
             padding-top: 20px;
         }
+
         .container header {
             font-size: 1.2rem;
             color: #000;
@@ -22,16 +24,20 @@
             text-align: center;
             margin-top: -10px;
         }
+
         .container .form {
             margin-top: 15px;
         }
+
         .form .input-box {
             width: 100%;
             margin-top: 10px;
         }
+
         .input-box label {
             color: #000;
         }
+
         .form :where(.input-box input, .select-box) {
             position: relative;
             height: 35px;
@@ -45,34 +51,43 @@
             padding: 0 15px;
             background: rgb(255, 255, 255);
         }
+
         .input-box input:focus {
             box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
         }
+
         .form .column {
             display: flex;
             column-gap: 15px;
         }
+
         .form .gender-box {
             margin-top: 10px;
         }
+
         .form :where(.gender-option, .gender) {
             display: flex;
             align-items: center;
             column-gap: 50px;
             flex-wrap: wrap;
         }
+
         .form .gender {
             column-gap: 5px;
         }
+
         .gender input {
             accent-color: rgb(14, 29, 100)
         }
+
         .form :where(.gender input, .gender label) {
             cursor: pointer;
         }
+
         .gender label {
             color: #000;
         }
+
         .form button {
             height: 40px;
             width: 100%;
@@ -84,6 +99,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
+
         .profile-container {
             display: flex;
             flex-direction: column;
@@ -95,6 +111,7 @@
             height: 530px;
             width: 100%;
         }
+
         .profile-picture {
             width: 150px;
             height: 150px;
@@ -102,6 +119,7 @@
             border: 2px solid rgb(255, 255, 255);
             object-fit: cover;
         }
+
         .form-container {
             max-width: 500px;
             height: 530px;
@@ -109,16 +127,81 @@
             background: white;
             padding: 30px;
         }
+
         .profile-img {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
         }
+
         .profile-section {
             text-align: center;
             color: white;
             font-size: 16px;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to right, rgb(100, 169, 212), rgb(99, 152, 227));
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            height: 530px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .profile-picture {
+            width: 160px;
+            /* กำหนดขนาดความกว้าง */
+            height: 160px;
+            /* กำหนดขนาดความสูง */
+            border-radius: 50%;
+            /* ให้เป็นวงกลม */
+            border: 2px solid rgb(255, 255, 255);
+            object-fit: cover;
+            /* ควบคุมไม่ให้รูปผิดสัดส่วน */
+        }
+
+        .profile-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-section {
+            text-align: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        img.rounded-circle {
+            object-fit: cover;
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-container input {
+            width: 100%;
+            padding-right: 40px;
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: gray;
         }
 
         @media (max-width: 766px) {
@@ -126,20 +209,24 @@
                 flex-direction: column;
                 /* จัดวางให้เป็นแนวตั้ง */
             }
+
             .profile-container {
                 width: 100%;
                 height: 150px;
             }
+
             .form-container {
                 width: 100%;
                 height: auto;
                 padding: 20px;
             }
+
             .profile-picture {
                 width: 120px;
                 /* ปรับขนาดรูปโปรไฟล์ให้พอดี */
                 height: 120px;
             }
+
             .form .column {
                 display: flex;
                 flex-direction: row;
@@ -152,16 +239,19 @@
                 width: 100%;
                 height: 570px;
             }
+
             .form-container {
                 width: 100%;
                 height: 570px;
                 padding: 20px;
             }
+
             .profile-picture {
                 width: 120px;
                 /* ปรับขนาดรูปโปรไฟล์ให้พอดี */
                 height: 120px;
             }
+
             .form .column {
                 display: flex;
                 flex-direction: row;
@@ -238,11 +328,17 @@ if (isset($_SESSION['error'])) {
                 </div>
                 <div class="input-box">
                     <label for="password" class="form-label">รหัสผ่าน</label>
-                    <input type="password" id="password" name="password" class="form-control">
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" placeholder="รหัสต้องมี A-Z, a-z, !@ และ 0-9" class="form-control">
+                        <i class="fa fa-eye eye-icon" id="eyeIcon1"></i>
+                    </div>
                 </div>
                 <div class="input-box">
                     <label for="confirm_password" class="form-label">ยืนยันรหัสผ่าน</label>
-                    <input type="password" id="confirm_password" name="confirm_password" class="form-control">
+                    <div class="password-container">
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="รหัสต้องมี A-Z, a-z, !@ และ 0-9" class="form-control">
+                        <i class="fa fa-eye eye-icon" id="eyeIcon2"></i>
+                    </div>
                 </div>
                 <div class="mt-3">
                     <button type="submit" class="btn btn-primary w-100">แก้ไขข้อมูล</button>
@@ -250,4 +346,68 @@ if (isset($_SESSION['error'])) {
             </form>
         </div>
     </section>
+
+    <script src="public/script.js"></script>
+    <script>
+        function togglePassword(inputId, eyeIconId) {
+            let passwordInput = document.getElementById(inputId);
+            let eyeIcon = document.getElementById(eyeIconId);
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text"; // แสดงรหัสผ่าน
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash"); // เปลี่ยนไอคอนเป็นซ่อน
+            } else {
+                passwordInput.type = "password"; // ซ่อนรหัสผ่าน
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye"); // เปลี่ยนไอคอนเป็นแสดง
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("JavaScript Loaded"); // เช็คว่า JS โหลดหรือไม่
+
+            function togglePassword(inputId, eyeIconId) {
+                let passwordInput = document.getElementById(inputId);
+                let eyeIcon = document.getElementById(eyeIconId);
+
+                if (!passwordInput || !eyeIcon) {
+                    console.log("Error: ไม่พบ element ที่กำหนด");
+                    return;
+                }
+
+                console.log("Toggle password:", inputId);
+
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    eyeIcon.classList.remove("fa-eye");
+                    eyeIcon.classList.add("fa-eye-slash");
+                } else {
+                    passwordInput.type = "password";
+                    eyeIcon.classList.remove("fa-eye-slash");
+                    eyeIcon.classList.add("fa-eye");
+                }
+            }
+
+            let eyeIcon1 = document.getElementById("eyeIcon1");
+            let eyeIcon2 = document.getElementById("eyeIcon2");
+
+            if (eyeIcon1) {
+                eyeIcon1.addEventListener("click", function() {
+                    togglePassword("password", "eyeIcon1");
+                });
+            } else {
+                console.log("Error: ไม่พบ eyeIcon1");
+            }
+
+            if (eyeIcon2) {
+                eyeIcon2.addEventListener("click", function() {
+                    togglePassword("confirm_password", "eyeIcon2");
+                });
+            } else {
+                console.log("Error: ไม่พบ eyeIcon2");
+            }
+        });
+    </script>
+
 </body>

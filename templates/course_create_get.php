@@ -26,6 +26,16 @@
                 cursor: pointer;
             }
         }
+        @media (min-width: 767px) and (max-width: 768px) {
+            .image-upload-titel {
+                min-height: 300px;
+                max-height: 300px;
+            }
+            .image-upload {
+                min-height: 150px;
+                max-height: 150px;
+            }
+        }
         #description {
             resize: none; /* ห้ามปรับขนาด */
         }
@@ -54,7 +64,7 @@
                     </div>
                     <div class="mb-2">
                     <label for="max_participants" class="form-label">จำนวนคนสูงสุด</label>
-                    <input type="number" id="max_participants" name="max_participants" class="form-control" required>
+                    <input type="number" id="max_participants" max="100000" name="max_participants" class="form-control" required>
                     </div>
                     <div class="col-12 col-md-12">
                         <div class="d-flex flex-column flex-md-row">

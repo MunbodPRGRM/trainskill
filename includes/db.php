@@ -8,7 +8,7 @@ function getConnection():mysqli
     // $username = 'natakritnl_trainskill';
     // $password = 'TrainSkill2165';
 
-    // 
+    
     $hostname = 'localhost';
     $dbName = 'trainskill';
     $username = 'trainskill';
