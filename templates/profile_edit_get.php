@@ -15,7 +15,6 @@
             align-items: center;
             padding-top: 20px;
         }
-
         .container header {
             font-size: 1.2rem;
             color: #000;
@@ -23,20 +22,16 @@
             text-align: center;
             margin-top: -10px;
         }
-
         .container .form {
             margin-top: 15px;
         }
-
         .form .input-box {
             width: 100%;
             margin-top: 10px;
         }
-
         .input-box label {
             color: #000;
         }
-
         .form :where(.input-box input, .select-box) {
             position: relative;
             height: 35px;
@@ -50,43 +45,34 @@
             padding: 0 15px;
             background: rgb(255, 255, 255);
         }
-
         .input-box input:focus {
             box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
         }
-
         .form .column {
             display: flex;
             column-gap: 15px;
         }
-
         .form .gender-box {
             margin-top: 10px;
         }
-
         .form :where(.gender-option, .gender) {
             display: flex;
             align-items: center;
             column-gap: 50px;
             flex-wrap: wrap;
         }
-
         .form .gender {
             column-gap: 5px;
         }
-
         .gender input {
             accent-color: rgb(14, 29, 100)
         }
-
         .form :where(.gender input, .gender label) {
             cursor: pointer;
         }
-
         .gender label {
             color: #000;
         }
-
         .form button {
             height: 40px;
             width: 100%;
@@ -98,7 +84,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-
         .profile-container {
             display: flex;
             flex-direction: column;
@@ -110,7 +95,6 @@
             height: 530px;
             width: 100%;
         }
-
         .profile-picture {
             width: 150px;
             height: 150px;
@@ -118,7 +102,6 @@
             border: 2px solid rgb(255, 255, 255);
             object-fit: cover;
         }
-
         .form-container {
             max-width: 500px;
             height: 530px;
@@ -126,14 +109,12 @@
             background: white;
             padding: 30px;
         }
-
         .profile-img {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
         }
-
         .profile-section {
             text-align: center;
             color: white;
@@ -145,24 +126,20 @@
                 flex-direction: column;
                 /* จัดวางให้เป็นแนวตั้ง */
             }
-
             .profile-container {
                 width: 100%;
                 height: 150px;
             }
-
             .form-container {
                 width: 100%;
                 height: auto;
                 padding: 20px;
             }
-
             .profile-picture {
                 width: 120px;
                 /* ปรับขนาดรูปโปรไฟล์ให้พอดี */
                 height: 120px;
             }
-
             .form .column {
                 display: flex;
                 flex-direction: row;
@@ -170,22 +147,25 @@
             }
         }
 
-        @media (min-width: 767px) and (max-width: 769px) {
+        @media (min-width: 767px) and (max-width: 992px) {
             .profile-container {
                 width: 100%;
-                height: 510px;
+                height: 570px;
             }
-
             .form-container {
                 width: 100%;
-                height: 510px;
+                height: 570px;
                 padding: 20px;
             }
-
             .profile-picture {
                 width: 120px;
                 /* ปรับขนาดรูปโปรไฟล์ให้พอดี */
                 height: 120px;
+            }
+            .form .column {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -209,7 +189,7 @@ if (isset($_SESSION['error'])) {
 }
 ?>
 
-<body>
+<body style="background-color:rgb(236, 235, 235);">
     <section class="container">
         <div class="profile-container d-flex justify-content-center align-items-center">
             <label for="profile_picture">

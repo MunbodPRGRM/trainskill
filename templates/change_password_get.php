@@ -12,15 +12,15 @@
         /* ปรับแต่งให้ popup ปรากฏขึ้นที่ด้านบน */
         .popup-message {
             position: fixed;
-            margin-top: 50px;
+            margin-top: 20px;
             top: 10px; /* ตำแหน่งจากด้านบนของหน้า */
             left: 50%;
             transform: translateX(-50%);
             z-index: 1050; /* ให้ popup อยู่ข้างบนสุด */
-            max-width: 300px;
+            max-width: 270px;
             width: 100%;
             padding: 10px 20px;
-            background-color:rgb(73, 199, 102); /* สีพื้นหลัง (สีเขียว) */
+            background-color:rgb(220, 72, 72); /* สีพื้นหลัง (สีเขียว) */
             color: white;
             border-radius: 5px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -34,7 +34,6 @@
             opacity: 1;
             top: 20px; /* ปรับให้ขึ้นมาจากด้านบน */
         }
-
         @media (max-width: 768px) {
             .card {
                 width: 50%;
@@ -62,8 +61,8 @@
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100">
     <div class="card p-4 shadow-lg">
-        <h3 class="text-center mb-3">LOGIN TO YOUR ACCOUNT</h3>
-        <form action="/login" method="post">
+        <h3 class="text-center mb-3">RESET YOUR PASSWORD</h3>
+        <form action="/change_password" method="post">
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label>
                 <input type="email" id="email" name="email" class="form-control" required>
@@ -72,17 +71,21 @@
                 <label for="password" class="form-label">Password:</label>
                 <input type="password" id="password" name="password" class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+            </div>
             <button type="submit" class="btn btn-primary w-100">LOGIN</button>
         </form>
             <p class="text-center mt-3">Don't have an account? <a href="/register">Sign up now</a></p>
-            <a class="text-center" href="/change_password">Forget password?</a>
+            <a class="text-center" href="/login">Login?</a>
         <?php
             if (isset($_SESSION['message'])):
                 $message = $_SESSION['message'];
                 unset($_SESSION['message']);
             ?>
             <div id="popupMessage" class="popup-message text-center">
-                ✔️ <?= $message; ?>
+                ❌ <?= $message; ?>
             </div>
 
             <script>
@@ -102,4 +105,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

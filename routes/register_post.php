@@ -9,16 +9,17 @@ $birthday = $_POST['birthday'];
 $gender = $_POST['gender'];
 
 if ($password === $confirm_password) {
-    if (register($user_name, $email, $password, $phone_number, $birthday, $gender)) {
+    $file = isset($_FILES['profile_picture']) ? $_FILES['profile_picture'] : null;
+
+    if (register($user_name, $email, $password, $phone_number, $birthday, $gender, $file)) {
         $_SESSION['message'] = 'Registration successful!';
         header('Location: /');
         exit;
     } else {
-        $_SESSION['message'] = 'Email is already registered. Please use a different email.';
+        $_SESSION['message'] = 'Email is already registered';
     }
 } else {
-    $_SESSION['message'] = 'Password and Confirm Password do not match';
+    $_SESSION['message'] = 'Password do not match';
 }
 
 renderView('register_get');
-unset($_SESSION['message']);

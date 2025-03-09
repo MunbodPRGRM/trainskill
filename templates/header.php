@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrainSkill</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         html {
             height: 100%;
@@ -180,7 +181,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse">
+                <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a class="nav-link" href="/">TrainSkill</a></li>
                         <li class="nav-item"><a class="nav-link" href="/course_create">สร้างกิจกรรม</a></li>
@@ -188,7 +189,7 @@
                         <li class="nav-item"><a class="nav-link" href="/history">ประวัติการเข้าร่วม</a></li>
                     </ul>
 
-                    <div class="btn btn-danger ms-2">
+                    <div class="btn btn-danger">
                         <a href="/logout" class="text-decoration-none">ออกจากระบบ</a>
                     </div>
                 </div>

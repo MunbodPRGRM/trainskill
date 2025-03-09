@@ -19,7 +19,6 @@
             justify-content: center;
             align-items: center;
         }
-
         .container header {
             font-size: 1.2rem;
             color: #000;
@@ -27,7 +26,6 @@
             text-align: center;
             margin-top: -10px;
         }
-
         .container .form {
             margin-top: 15px;
         }
@@ -40,7 +38,6 @@
         .input-box label {
             color: #000;
         }
-
         .form :where(.input-box input, .select-box) {
             position: relative;
             height: 35px;
@@ -54,43 +51,34 @@
             padding: 0 15px;
             background: rgb(255, 255, 255);
         }
-
         .input-box input:focus {
             box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
         }
-
         .form .column {
             display: flex;
             column-gap: 15px;
         }
-
         .form .gender-box {
             margin-top: 10px;
         }
-
         .form :where(.gender-option, .gender) {
             display: flex;
             align-items: center;
             column-gap: 50px;
             flex-wrap: wrap;
         }
-
         .form .gender {
             column-gap: 5px;
         }
-
         .gender input {
             accent-color: rgb(14, 29, 100)
         }
-
         .form :where(.gender input, .gender label) {
             cursor: pointer;
         }
-
         .gender label {
             color: #000;
         }
-
         .form button {
             height: 40px;
             width: 100%;
@@ -102,7 +90,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-
         .profile-container {
             display: flex;
             flex-direction: column;
@@ -114,7 +101,6 @@
             height: 620px;
             width: 100%;
         }
-
         .profile-picture {
             width: 150px;
             height: 150px;
@@ -122,7 +108,6 @@
             border: 2px solid rgb(255, 255, 255);
             object-fit: cover;
         }
-
         .form-container {
             max-width: 500px;
             height: 620px;
@@ -130,53 +115,94 @@
             background: white;
             padding: 30px;
         }
+        /* ปรับแต่งให้ popup ปรากฏขึ้นที่ด้านบน */
+        .popup-message {
+            position: fixed;
+            margin-top: 40px;
+            top: 10px; /* ตำแหน่งจากด้านบนของหน้า */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1050; /* ให้ popup อยู่ข้างบนสุด */
+            max-width: 300px;
+            width: 100%;
+            padding: 10px 20px;
+            background-color:rgb(220, 72, 72); /* สีพื้นหลัง (สีเขียว) */
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            display: none; /* ซ่อนก่อน */
+            opacity: 0; /* ซ่อนก่อน */
+            transition: opacity 0.3s ease, top 0.3s ease; /* ทำให้แสดงอย่างค่อยเป็นค่อยไป */
+        }
+        /* แสดงผลเมื่อ popup ถูกแสดง */
+        .popup-message.show {
+            display: block;
+            opacity: 1;
+            top: 20px; /* ปรับให้ขึ้นมาจากด้านบน */
+        }
 
         @media (max-width: 766px) {
+            body {
+                padding-top: 40px;
+            }
             .container {
                 flex-direction: column;
                 /* จัดวางให้เป็นแนวตั้ง */
             }
-
             .profile-container {
                 width: 100%;
-                height: 150px;
+                height: 200px;
             }
-
             .form-container {
                 width: 100%;
                 height: auto;
                 padding: 20px;
+                margin-bottom: 50px;
             }
-
             .profile-picture {
                 width: 120px;
                 /* ปรับขนาดรูปโปรไฟล์ให้พอดี */
                 height: 120px;
             }
-
             .form .column {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
             }
+            .popup-message {
+                margin-top: 20px;
+                max-width: 240px;
+                font-size: smaller;
+            }
         }
 
-        @media (min-width: 767px) and (max-width: 769px) {
+        @media (min-width: 767px) and (max-width: 992px) {
+            body {
+                padding-top: 40px;
+            }
             .profile-container {
                 width: 100%;
-                height: 620px;
+                height: 680px;
+                margin-bottom: 50px;
             }
-
             .form-container {
                 width: 100%;
-                height: 620px;
+                height: 680px;
                 padding: 20px;
+                margin-bottom: 50px;
             }
-
             .profile-picture {
                 width: 120px;
                 /* ปรับขนาดรูปโปรไฟล์ให้พอดี */
                 height: 120px;
+            }
+            .form .column {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .popup-message {
+                margin-top: 20px;
             }
         }
     </style>
@@ -187,7 +213,7 @@
         <div class="profile-container d-flex justify-content-center align-items-center">
             <p>เลือกรูปโปรไฟล์</p>
             <label for="profile_picture">
-                <img src="" class="profile-picture" id="preview">
+                <img src="Unknown_person.jpg" class="profile-picture" id="preview">
             </label>
         </div>
         </div>
@@ -248,11 +274,27 @@
     </section>
 
     <?php
-    if (isset($_SESSION['message'])) {
-        echo '<div class="alert alert-info text-center mt-2">' . $_SESSION['message'] . '</div>';
-        unset($_SESSION['message']);
-    }
-    ?>
+        if (isset($_SESSION['message'])):
+            $message = $_SESSION['message'];
+            unset($_SESSION['message']);
+        ?>
+        <div id="popupMessage" class="popup-message text-center">
+            ❌ <?= $message; ?>
+        </div>
+
+        <script>
+            // ใช้ JavaScript สำหรับแสดง popup เมื่อข้อความมีค่า
+            document.addEventListener("DOMContentLoaded", function() {
+                var popup = document.getElementById('popupMessage');
+                popup.classList.add('show');
+                
+                // ซ่อน popup หลังจาก 3 วินาที
+                setTimeout(function() {
+                    popup.classList.remove('show');
+                }, 3000); // 3000 ms = 3 วินาที
+            });
+        </script>
+    <?php endif; ?>
 </body>
 
 </html>

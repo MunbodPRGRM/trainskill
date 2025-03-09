@@ -22,6 +22,7 @@ foreach ($training as $activity) {
                         <th>อายุ</th>
                         <th>สถานะ</th>
                         <th class="text-center">การจัดการ</th>
+                        <th class="text-center">ใส่ UserId</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +43,14 @@ foreach ($training as $activity) {
                                     <a href="/check_participant?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&bt=1" class="btn btn-success btn-sm">มาร่วมกิจกรรม</a>
                                     <a href="/check_participant?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&bt=2" class="btn btn-danger btn-sm">ไม่มากิจกรรม</a>
                                 </td>
+                                <!-- <td>
+                                    <form action="">
+                                        <span>
+                                            <input type="text" name="user_id" id="user_id" class="form-control">
+                                            <span><input type="submit" value="ยืนยัน" class="btn btn-primary mt-2"></span>.
+                                        </span>
+                                    </form>
+                                </td> -->
                             </tr>
                         <?php } ?>
                     <?php endforeach; ?>

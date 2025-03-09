@@ -192,28 +192,29 @@ function deleteImage($course_id) {
 }
 
 function uploadProfileImage($file) {
-    $targetDIR = __DIR__ . "/../public/uploads/";
+    $targetDIR = realpath(__DIR__ . "/../public/uploads/") . "/";
     $allowTypes = ['jpg', 'jpeg', 'png', 'gif'];
-    
+
     $profile_image = null;
 
     if (!empty($file["name"])) {
         $fileName = time() . "_" . basename($file["name"]);
-        $targetFilePath = $targetDIR . $fileName;
-        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+        $fileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
         if (in_array($fileType, $allowTypes)) {
+            $targetFilePath = $targetDIR . $fileName;
+
             if (move_uploaded_file($file["tmp_name"], $targetFilePath)) {
-                $profile_image = $fileName;
+                return $fileName;
             } else {
-                error_log("There was an error uploading the file.");
+                error_log("Error uploading the file.");
             }
         } else {
             error_log("Unsupported file type: " . $fileType);
         }
     }
 
-    return $profile_image; 
+    return "Unknown_person.jpg"; 
 }
 
 function updateProfileImage($file, $user_id) {
