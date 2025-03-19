@@ -38,13 +38,18 @@
 
                         <?php if ($activity['user_id'] != $currentUserId): ?>
                             <?php if (hasJoinedCourse($currentUserId, $activity['course_id'])): ?>
-                                <button class="btn btn-secondary mt-3" disabled>เข้าร่วมไปแล้ว</button>
+                                <a href="/course_cancel?user_id=<?= $_SESSION['user_id'] ?>&course_id=<?= $activity['course_id'] ?>" class="btn btn-danger mt-3">ยกเลิกการเข้าร่วม</a>
                             <?php else: ?>
                                 <a href="/course_join?id=<?= htmlspecialchars($activity['course_id']) ?>" class="btn btn-success mt-3">📢 ฉันเข้าร่วม</a>
                             <?php endif; ?>
                         <?php endif; ?>
                         <?php if ($activity['user_id'] == $currentUserId): ?>
-                            <a href="/course_participant?id=<?= htmlspecialchars($activity['course_id']) ?>" class="btn btn-success mt-3">ดูผู้เข้าร่วม</a>
+                            <div>
+                                <a href="/course_participant?id=<?= htmlspecialchars($activity['course_id']) ?>" class="btn btn-info mt-3">ดูผู้เข้าร่วม</a>
+                                <a href="/course_edit?id=<?= $activity['course_id'] ?>" class="btn btn-primary mt-3">แก้ไข</a>
+                                <a href="/course_delete?id=<?= $activity['course_id'] ?>" class="btn btn-danger mt-3" onclick="return confirmDelete()">ลบ</a>
+                            </div>
+                            <button class="btn btn-secondary mt-3" disabled>คุณเป็นผู้สร้างกิจกรรม</button>
                         <?php endif; ?>
                         <a href="/" class="btn btn-secondary mt-3">⬅ Back to Home</a>
                     <?php endforeach; ?>

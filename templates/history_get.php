@@ -81,6 +81,8 @@ if (isset($_SESSION['timestamp'])) {
                                 <p class="card-text">รายละเอียด: <?= $activity['description'] ?></p>
                                 <p class="card-text">จำนวนผู้เข้าร่วม: <?= getNumberParticipants($activity['course_id']); ?>/<?= $activity['max_participants'] ?> คน</p>
 
+                                <a href="/course?id=<?= $activity['course_id'] ?>" class="btn btn-primary">รายละเอียด</a>
+
                                 <?php
                                 if ($activity['status'] == 'waiting') {
                                     echo '<button class="btn btn-secondary">สถานะ: กำลังรอการตอบรับ</button>';

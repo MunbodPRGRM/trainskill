@@ -73,6 +73,42 @@ function joinCourse(int $course_id, int $user_id)
     }
 }
 
+function getRegistrationId(int $course_id, int $user_id)
+{
+    $conn = getConnection();
+    $sql = '
+        SELECT registration_id
+        FROM registration
+        WHERE course_id = ? AND user_id = ?
+    ';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ii', $course_id, $user_id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    return $row['registration_id'];
+}
+
+function deleteRegistration(int $registrationId)
+{
+    $conn = getConnection();
+    $sql = '
+        DELETE FROM registration
+        WHERE registration_id = ?
+    ';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $registrationId);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function getNumberParticipants(int $course_id)
 {
     $conn = getConnection();

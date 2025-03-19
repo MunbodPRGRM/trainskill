@@ -190,6 +190,7 @@
                         <li class="nav-item"><a class="nav-link" href="/course_create">สร้างกิจกรรม</a></li>
                         <li class="nav-item"><a class="nav-link" href="/course_own">กิจกรรมของคุณ</a></li>
                         <li class="nav-item"><a class="nav-link" href="/history">ประวัติการเข้าร่วม</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/notification">การแจ้งเตือน</a></li>
                     </ul>
 
                     <div class="btn btn-danger">

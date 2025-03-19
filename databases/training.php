@@ -78,6 +78,24 @@ function createTraining(int $registrationId)
     return $result;
 }
 
+function deleteTrainingByRegistrationId($registrationId)
+{
+    $conn = getConnection();
+    $sql = '
+        DELETE FROM training
+        WHERE registration_id = ?;
+    ';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $registrationId);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function updateStatus($user_id, $course_id, $status)
 {
     $conn = getConnection();
