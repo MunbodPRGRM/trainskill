@@ -12,8 +12,8 @@ $result = getUserById($_SESSION['user_id']);
 if (!empty($password)) {
     if ($password !== $confirm_password) {
         $_SESSION['error'] = 'รหัสผ่านไม่ตรงกัน';
-    } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $password)) {
-        $_SESSION['error'] = 'รหัสผ่านต้องมีอย่างน้อย 8 ตัว';
+    } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z]).{4,}$/', $password)) {
+        $_SESSION['error'] = 'รหัสผ่านต้องมีอย่างน้อย 4 ตัว และตัวพิมพ์เล็กและใหญ่';
     }
 
     if (isset($_SESSION['error'])) {

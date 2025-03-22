@@ -1,5 +1,27 @@
 <head>
     <title>TrainSkill-กิจกรรมที่ขอเข้าร่วม</title>
+    <style>
+        .course-images img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            max-height: 150px; /* ควบคุมความสูงให้คงที่ */
+        }
+        .searchbar {
+            font-size: 14px;
+            font-family: arial, sans-serif;
+            color: #202124;
+            display: flex;
+            z-index: 3;
+            height: 44px;
+            background: white;
+            border: 1px solid #dfe1e5;
+            box-shadow: none;
+            margin: 0 auto;
+            width: auto;
+            width: 600px;
+        }
+    </style>
 </head>
 
 <?php
@@ -26,7 +48,7 @@ if (isset($_SESSION['timestamp'])) {
 
     <div class="container mt-4 content">
         <h1 style="text-align: center;">กิจกรรมที่ขอเข้าร่วม</h1>
-            <form class="d-flex mb-4 mt-4">
+        <form class="d-flex mb-4 mt-4">
                 <div class="searchbar">
                     <div class="searchbar-wrapper">
                         <div class="searchbar-left">
@@ -41,12 +63,12 @@ if (isset($_SESSION['timestamp'])) {
 
                         <div class="searchbar-center">
                             <div class="searchbar-input-spacer"></div>
-                                <input type="search" class="searchbar-input" maxlength="2048" name="q" autocapitalize="off" autocomplete="off" title="Search" role="combobox" placeholder="ชื่อกิจกรรม/วัน">
+                                <input type="search" class="searchbar-input" maxlength="2048" name="q" autocapitalize="off" autocomplete="off" title="Search" role="combobox" placeholder="ชื่อกิจกรรม">
                             </div>
                         </div>
-                    <button class="btn btn-primary" style="border-radius: 20px; width: 90px;">ค้นหา</button>
+                    <button class="btn btn-primary" style="width: 90px;">ค้นหา</button>
                 </div>
-            </form>
+        </form>
 
         <?php if (!empty($training)): ?>
             <?php foreach ($training as $activity): ?>
@@ -54,24 +76,24 @@ if (isset($_SESSION['timestamp'])) {
                     <div class="row g-0">
                         <div class="col-md-2 d-flex align-items-center">
                             <?php
-                                $course_id = $activity['course_id'];
-                                $courseDetails = getCourseImageTitle($course_id);
-                                
-                                if ($courseDetails) {
-                                    $images = $courseDetails['images'];
-                                    
-                                    if (!empty($images)) {
-                                        echo "<div class='course-images'>";
-                                        foreach ($images as $imageURL) {
-                                            echo "<img src='$imageURL' class='img-fluid rounded-start' alt='กิจกรรม'>";
-                                        }
-                                        echo "</div>";
-                                    } else {
-                                        echo "<p>ไม่มีรูปภาพสำหรับคอร์สนี้</p>";
+                            $course_id = $activity['course_id'];
+                            $courseDetails = getCourseImageTitle($course_id);
+
+                            if ($courseDetails) {
+                                $images = $courseDetails['images'];
+
+                                if (!empty($images)) {
+                                    echo "<div class='course-images'>";
+                                    foreach ($images as $imageURL) {
+                                        echo "<img src='$imageURL' class='img-fluid rounded-start' alt='กิจกรรม'>";
                                     }
+                                    echo "</div>";
                                 } else {
-                                    echo "<p>ไม่พบคอร์สที่ตรงกับ course_id นี้</p>";
+                                    echo "<p>ไม่มีรูปภาพสำหรับคอร์สนี้</p>";
                                 }
+                            } else {
+                                echo "<p>ไม่พบคอร์สที่ตรงกับ course_id นี้</p>";
+                            }
                             ?>
                         </div>
                         <div class="col-md-10">
@@ -83,25 +105,31 @@ if (isset($_SESSION['timestamp'])) {
 
                                 <a href="/course?id=<?= $activity['course_id'] ?>" class="btn btn-primary">รายละเอียด</a>
 
-                                <?php
-                                if ($activity['status'] == 'waiting') {
-                                    echo '<button class="btn btn-secondary">สถานะ: กำลังรอการตอบรับ</button>';
-                                } else if ($activity['status'] == 'accepted') {
-                                    echo '<button class="btn btn-success">สถานะ: เข้าร่วมได้</button>';
-                                } else if ($activity['status'] == 'cancelled') {
-                                    echo '<button class="btn btn-danger">สถานะ: ไม่ให้เข้าร่วม</button>';
-                                }
-                                ?>
+                                <?php if ($activity['status'] == 'accepted' && $activity['attendance'] == 'unknown') : ?>
+                                    <a href="/checkname?course_id=<?= $activity['course_id'] ?>" class="btn btn-success">เช็กชื่อ</a>
+                                <?php endif; ?>
 
-                                <?php
-                                if ($activity['attendance'] == 'present') {
-                                    echo '<button class="btn btn-success">เช็กชื่อ: เข้าร่วมกิจกรรม</button>';
-                                } else if ($activity['attendance'] == 'absent') {
-                                    echo '<button class="btn btn-danger">เช็กชื่อ: ไม่เข้าร่วมกิจกรรม</button>';
-                                } else {
-                                    echo '<button class="btn btn-secondary">เช็กชื่อ: ยังไม่ได้เข้าร่วมกิจกรรม</button>';
-                                }
-                                ?>
+                                <div class="mt-1">
+                                    <?php
+                                    if ($activity['status'] == 'waiting') {
+                                        echo '<button class="btn btn-secondary" disabled>สถานะ: กำลังรอการตอบรับ</button>';
+                                    } else if ($activity['status'] == 'accepted') {
+                                        echo '<button class="btn btn-success" disabled>สถานะ: เข้าร่วมได้</button>';
+                                    } else if ($activity['status'] == 'cancelled') {
+                                        echo '<button class="btn btn-danger" disabled>สถานะ: ไม่ให้เข้าร่วม</button>';
+                                    }
+                                    ?>
+                                
+                                    <?php
+                                    if ($activity['attendance'] == 'present') {
+                                        echo '<button class="btn btn-success" disabled>เช็กชื่อ: เข้าร่วมกิจกรรม</button>';
+                                    } else if ($activity['attendance'] == 'absent') {
+                                        echo '<button class="btn btn-danger" disabled>เช็กชื่อ: ไม่เข้าร่วมกิจกรรม</button>';
+                                    } else {
+                                        echo '<button class="btn btn-secondary" disabled >เช็กชื่อ: ยังไม่ได้เข้าร่วมกิจกรรม</button>';
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>

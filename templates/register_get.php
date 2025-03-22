@@ -21,7 +21,6 @@
             justify-content: center;
             align-items: center;
         }
-
         .container header {
             font-size: 1.2rem;
             color: #000;
@@ -29,7 +28,6 @@
             text-align: center;
             margin-top: -10px;
         }
-
         .container .form {
             margin-top: 15px;
         }
@@ -42,7 +40,6 @@
         .input-box label {
             color: #000;
         }
-
         .form :where(.input-box input, .select-box) {
             position: relative;
             height: 35px;
@@ -56,43 +53,34 @@
             padding: 0 15px;
             background: rgb(255, 255, 255);
         }
-
         .input-box input:focus {
             box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
         }
-
         .form .column {
             display: flex;
             column-gap: 15px;
         }
-
         .form .gender-box {
             margin-top: 10px;
         }
-
         .form :where(.gender-option, .gender) {
             display: flex;
             align-items: center;
             column-gap: 50px;
             flex-wrap: wrap;
         }
-
         .form .gender {
             column-gap: 5px;
         }
-
         .gender input {
             accent-color: rgb(14, 29, 100)
         }
-
         .form :where(.gender input, .gender label) {
             cursor: pointer;
         }
-
         .gender label {
             color: #000;
         }
-
         .form button {
             height: 40px;
             width: 100%;
@@ -104,7 +92,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-
         .profile-container {
             display: flex;
             flex-direction: column;
@@ -116,7 +103,6 @@
             height: 710px;
             width: 100%;
         }
-
         .profile-picture {
             width: 150px;
             height: 150px;
@@ -124,7 +110,6 @@
             border: 2px solid rgb(255, 255, 255);
             object-fit: cover;
         }
-
         .form-container {
             max-width: 500px;
             height: 710px;
@@ -132,50 +117,38 @@
             background: white;
             padding: 30px;
         }
-
         /* ปรับแต่งให้ popup ปรากฏขึ้นที่ด้านบน */
         .popup-message {
             position: fixed;
-            top: 10px;
-            /* ตำแหน่งจากด้านบนของหน้า */
+            top: 10px; /* ตำแหน่งจากด้านบนของหน้า */
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1050;
-            /* ให้ popup อยู่ข้างบนสุด */
+            z-index: 1050; /* ให้ popup อยู่ข้างบนสุด */
             max-width: 300px;
             width: 100%;
             padding: 10px 20px;
-            background-color: rgb(220, 72, 72);
-            /* สีพื้นหลัง (สีเขียว) */
+            background-color:rgb(220, 72, 72); /* สีพื้นหลัง (สีเขียว) */
             color: white;
             border-radius: 5px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            display: none;
-            /* ซ่อนก่อน */
-            opacity: 0;
-            /* ซ่อนก่อน */
-            transition: opacity 0.3s ease, top 0.3s ease;
-            /* ทำให้แสดงอย่างค่อยเป็นค่อยไป */
+            display: none; /* ซ่อนก่อน */
+            opacity: 0; /* ซ่อนก่อน */
+            transition: opacity 0.3s ease, top 0.3s ease; /* ทำให้แสดงอย่างค่อยเป็นค่อยไป */
         }
-
         /* แสดงผลเมื่อ popup ถูกแสดง */
         .popup-message.show {
             display: block;
             opacity: 1;
-            top: 20px;
-            /* ปรับให้ขึ้นมาจากด้านบน */
+            top: 20px; /* ปรับให้ขึ้นมาจากด้านบน */
         }
-
         .password-container {
             position: relative;
             width: 100%;
         }
-
         .password-container input {
             width: 100%;
             padding-right: 40px;
         }
-
         .eye-icon {
             position: absolute;
             right: 10px;
@@ -184,78 +157,64 @@
             cursor: pointer;
             color: gray;
         }
-
         @media (max-width: 766px) {
             body {
                 padding-top: 40px;
             }
-
             .container {
                 flex-direction: column;
                 /* จัดวางให้เป็นแนวตั้ง */
             }
-
             .profile-container {
                 width: 100%;
                 height: 200px;
             }
-
             .form-container {
                 width: 100%;
                 height: auto;
                 padding: 20px;
                 margin-bottom: 50px;
             }
-
             .profile-picture {
                 width: 120px;
                 /* ปรับขนาดรูปโปรไฟล์ให้พอดี */
                 height: 120px;
             }
-
             .form .column {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
             }
-
             .popup-message {
                 margin-top: 20px;
                 max-width: 240px;
                 font-size: smaller;
             }
         }
-
         @media (min-width: 767px) and (max-width: 992px) {
             body {
                 padding-top: 40px;
             }
-
             .profile-container {
                 width: 100%;
                 height: 780px;
                 margin-bottom: 50px;
             }
-
             .form-container {
                 width: 100%;
                 height: 780px;
                 padding: 20px;
                 margin-bottom: 50px;
             }
-
             .profile-picture {
                 width: 120px;
-                /* ปรับขนาดรูปโปรไฟล์ให้พอดี */
                 height: 120px;
             }
-
             .form .column {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
             }
-
             .popup-message {
                 margin-top: 20px;
             }
@@ -317,14 +276,14 @@
                 <div class="input-box">
                     <label for="password" class="form-label">รหัสผ่าน</label>
                     <div class="password-container">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="รหัสต้องมี A-Z, a-z, !@ และ 0-9" required>
+                        <input type="password" id="password" name="password" class="form-control" required>
                         <i class="fa fa-eye eye-icon" id="eyeIcon1"></i>
                     </div>
                 </div>
                 <div class="input-box">
                     <label for="confirm_password" class="form-label">ยืนยันรหัสผ่าน</label>
                     <div class="password-container">
-                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="รหัสต้องมี A-Z, a-z, !@ และ 0-9" required>
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
                         <i class="fa fa-eye eye-icon" id="eyeIcon2"></i>
                     </div>
                 </div>
@@ -338,78 +297,16 @@
     </section>
 
     <?php
-    if (isset($_SESSION['message'])):
-        $message = $_SESSION['message'];
-        unset($_SESSION['message']);
-    ?>
+        if (isset($_SESSION['message'])):
+            $message = $_SESSION['message'];
+            unset($_SESSION['message']);
+        ?>
         <div id="popupMessage" class="popup-message text-center">
             ❌ <?= $message; ?>
         </div>
     <?php endif; ?>
 
-    <script src="public\script.js"></script>
-    <script>
-        function togglePassword(inputId, eyeIconId) {
-            let passwordInput = document.getElementById(inputId);
-            let eyeIcon = document.getElementById(eyeIconId);
-
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text"; // แสดงรหัสผ่าน
-                eyeIcon.classList.remove("fa-eye");
-                eyeIcon.classList.add("fa-eye-slash"); // เปลี่ยนไอคอนเป็นซ่อน
-            } else {
-                passwordInput.type = "password"; // ซ่อนรหัสผ่าน
-                eyeIcon.classList.remove("fa-eye-slash");
-                eyeIcon.classList.add("fa-eye"); // เปลี่ยนไอคอนเป็นแสดง
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            console.log("JavaScript Loaded"); // เช็คว่า JS โหลดหรือไม่
-
-            function togglePassword(inputId, eyeIconId) {
-                let passwordInput = document.getElementById(inputId);
-                let eyeIcon = document.getElementById(eyeIconId);
-
-                if (!passwordInput || !eyeIcon) {
-                    console.log("Error: ไม่พบ element ที่กำหนด");
-                    return;
-                }
-
-                console.log("Toggle password:", inputId);
-
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                    eyeIcon.classList.remove("fa-eye");
-                    eyeIcon.classList.add("fa-eye-slash");
-                } else {
-                    passwordInput.type = "password";
-                    eyeIcon.classList.remove("fa-eye-slash");
-                    eyeIcon.classList.add("fa-eye");
-                }
-            }
-
-            let eyeIcon1 = document.getElementById("eyeIcon1");
-            let eyeIcon2 = document.getElementById("eyeIcon2");
-
-            if (eyeIcon1) {
-                eyeIcon1.addEventListener("click", function() {
-                    togglePassword("password", "eyeIcon1");
-                });
-            } else {
-                console.log("Error: ไม่พบ eyeIcon1");
-            }
-
-            if (eyeIcon2) {
-                eyeIcon2.addEventListener("click", function() {
-                    togglePassword("confirm_password", "eyeIcon2");
-                });
-            } else {
-                console.log("Error: ไม่พบ eyeIcon2");
-            }
-        });
-    </script>
-
+    <script src="public/script.js"></script>
+    
 </body>
-
 </html>

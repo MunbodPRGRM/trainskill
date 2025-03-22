@@ -45,7 +45,19 @@ foreach ($training as $activity) {
                             <td><?= $activity['email'] ?></td>
                             <td><?= $activity['gender'] ?></td>
                             <td><?= (new DateTime())->diff(new DateTime($activity['birthday']))->y . " ปี"; ?></td>
-                            <td><?= $activity['status'] ?></td>
+
+                            <?php
+                            if ($activity['status'] == 'accepted') {
+                                echo '<td>ยอมรับการเข้าร่วม</td>';
+                            } else if ($activity['status'] == 'waiting') {
+                                echo '<td>รอการตอบรับ</td>';
+                            } else if ($activity['status'] == 'cancelled') {
+                                echo '<td>ปฏิเสธการเข้าร่วม</td>';
+                            } else {
+                                echo '<td></td>';
+                            }
+                            ?>
+
                             <td class="text-center">
                                 <?php if ($activity['status'] == 'accepted' || $activity['status'] == 'cancelled') { ?>
                                     <a href="/course_response?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&status=<?= $activity['status'] ?>&bt=0" class="btn btn-warning btn-sm" onclick="return confirmAlright()">ยกเลิก</a>

@@ -47,12 +47,6 @@ if (isset($_POST['g-recaptcha-response'])) {
 
         $file = isset($_FILES['profile_picture']) ? $_FILES['profile_picture'] : null;
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['message'] = 'Invalid email format';
-            renderView('register_get');
-            exit;
-        }
-
         if (!verifyCSRFToken($_POST['csrf_token'])) {
             $_SESSION['message'] = 'คำขอไม่ถูกต้อง';
             renderView('register_get');
@@ -65,8 +59,8 @@ if (isset($_POST['g-recaptcha-response'])) {
             exit;
         }
 
-        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $password)) {
-            $_SESSION['message'] = 'รหัสผ่านต้องมีอย่างน้อย 8 ตัว';
+        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z]).{4,}$/', $password)) {
+            $_SESSION['message'] = 'รหัสผ่านต้องมีอย่างน้อย 4 ตัว และตัวพิมพ์เล็กและใหญ่';
             renderView('register_get');
             exit;
         }

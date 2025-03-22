@@ -7,6 +7,20 @@
             object-fit: cover;
             max-height: 150px; /* ควบคุมความสูงให้คงที่ */
         }
+        .searchbar {
+            font-size: 14px;
+            font-family: arial, sans-serif;
+            color: #202124;
+            display: flex;
+            z-index: 3;
+            height: 44px;
+            background: white;
+            border: 1px solid #dfe1e5;
+            box-shadow: none;
+            margin: 0 auto;
+            width: auto;
+            width: 600px;
+        }
     </style>
 </head>
 <?php
@@ -17,7 +31,7 @@ if (isset($_SESSION['timestamp'])) {
     $user_id = $_SESSION['user_id'];
 
     if ($searchInput) {
-        $result = searchCoursesWithSingleInput($searchInput);
+        $result = search($searchInput);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 if ($row['user_id'] == $user_id) {
@@ -45,10 +59,10 @@ if (isset($_SESSION['timestamp'])) {
 
                     <div class="searchbar-center">
                         <div class="searchbar-input-spacer"></div>
-                            <input type="search" class="searchbar-input" maxlength="2048" name="q" autocapitalize="off" autocomplete="off" title="Search" role="combobox" placeholder="ชื่อกิจกรรม/วัน">
+                            <input type="search" class="searchbar-input" maxlength="2048" name="q" autocapitalize="off" autocomplete="off" title="Search" role="combobox" placeholder="ชื่อกิจกรรม">
                         </div>
                     </div>
-                <button class="btn btn-primary" style="border-radius: 20px; width: 90px;">ค้นหา</button>
+                <button class="btn btn-primary" style=" width: 90px;">ค้นหา</button>
             </div>
         </form>
 

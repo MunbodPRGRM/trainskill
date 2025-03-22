@@ -9,7 +9,7 @@ if (isset($_GET['user_id']) && isset($_GET['course_id'])) {
     $delReg = deleteRegistration($registrationId);
 
     if ($delTraining && $delReg) {
-        header('Location: /course?id=' . $course_id);
+        header('Location: /history');
     } else {
         echo 'Failed to cancel course';
     }

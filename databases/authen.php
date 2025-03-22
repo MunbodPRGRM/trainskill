@@ -30,6 +30,9 @@ function logout()
 
 function register(String $user_name, String $email, String $password, String $phone_number, String $birthday, String $gender, $file = null) {
     $conn = getConnection();
+
+    $email = strtolower($email);
+    
     $check_sql = 'SELECT user_id FROM users WHERE email = ? LIMIT 1';
     $stmt = $conn->prepare($check_sql);
     $stmt->bind_param('s', $email);

@@ -21,6 +21,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            /* background-color:rgb(236, 235, 235); */
             /* ทำให้หน้าผู้ใช้มีความสูงเต็มจอ */
         }
         footer {
@@ -50,10 +51,12 @@
             width: 0;
             height: 2px;
             background-color: white;
-            transition: width 0.5s ease-in-out; /* ค่อย ๆ ขึ้น */
+            transition: width 0.5s ease-in-out;
+            /* ค่อย ๆ ขึ้น */
         }
         .navbar-nav .nav-item .nav-link:hover::before {
-            width: 100%; /* เมื่อ hover ขยายเส้นให้เต็ม */
+            width: 100%;
+            /* เมื่อ hover ขยายเส้นให้เต็ม */
         }
         .searchbar {
             font-size: 14px;
@@ -65,14 +68,30 @@
             background: white;
             border: 1px solid #dfe1e5;
             box-shadow: none;
-            border-radius: 24px;
             margin: 0 auto;
             width: auto;
-            width: 600px;
+            width: 400px;
+            /* margin-right: -200px */
+            /* margin-left: 225px; */
         }
-        .searchbar:hover {
-            box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
-            border-color: rgba(223, 225, 229, 0);
+        .searchbar-date {
+            font-size: 14px;
+            font-family: arial, sans-serif;
+            color: #202124;
+            display: flex;
+            z-index: 3;
+            height: 44px;
+            background: white;
+            border: 1px solid #dfe1e5;
+            box-shadow: none;
+            margin: 0 auto;
+            width: auto;
+            width: 180px;
+            /* margin-left: -200px; */
+        }
+        .button {
+            height: 44px;
+            /* margin-left: -210px; */
         }
         .searchbar-wrapper {
             flex: 1;
@@ -159,6 +178,74 @@
         }
         img.rounded-circle {
             object-fit: cover;
+        }
+        @media (min-width: 1400px) and (max-width: 2561px) {
+            .searchbar {
+                height: 44px;
+                width: auto;
+                width: 400px;
+                margin-left: 225px;
+            }
+            .searchbar-date {
+                height: 44px;
+                width: auto;
+                width: 170px;
+                margin-left: -200px;
+            }
+            .button {
+                height: 44px;
+                margin-left: -210px;
+            }
+        }
+        @media (min-width: 992px) and (max-width: 1400px) {
+            .searchbar {
+                height: 44px;
+                width: auto;
+                width: 250px;
+                margin-left: 100px;
+            }
+            .searchbar-date {
+                height: 44px;
+                width: auto;
+                width: 180px;
+                margin-left: -100px;
+            }
+            .button {
+                height: 44px;
+                margin-left: -110px;
+            }
+        }
+        @media (min-width: 768px) and (max-width: 992px) {
+            .searchbar {
+                height: 44px;
+                width: auto;
+                width: 150px;
+                margin-left: 70px;
+            }
+            .searchbar-date {
+                height: 44px;
+                width: auto;
+                width: 180px;
+                margin-left: -50px;
+            }
+            .button {
+                height: 44px;
+                margin-left: -60px;
+                padding-right: 50px;
+            }
+        }
+        @media (min-width: 320px) and (max-width: 375px) {
+            .searchbar {
+                width: 300px;
+            }
+            .searchbar-date {
+                height: 44px;
+                width: auto;
+                width: 143px;
+            }
+            .searchbar-wrapper {
+                padding: 0px 0px 0 0px;
+            }
         }
     </style>
 </head>
