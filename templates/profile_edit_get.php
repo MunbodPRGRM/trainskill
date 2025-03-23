@@ -282,6 +282,7 @@ if (isset($_SESSION['error'])) {
 <body style="background-color:rgb(236, 235, 235);">
     <section class="container">
         <div class="profile-container d-flex justify-content-center align-items-center">
+            <p>ใส่รูปตรงนี้</p>
             <label for="profile_picture">
                 <img src="<?= $data['result']['profile_image'] ?>" class="profile-picture" id="preview">
             </label>
@@ -329,14 +330,14 @@ if (isset($_SESSION['error'])) {
                 <div class="input-box">
                     <label for="password" class="form-label">รหัสผ่าน</label>
                     <div class="password-container">
-                        <input type="password" id="password" name="password" placeholder="รหัสต้องมี A-Z, a-z, !@ และ 0-9" class="form-control">
+                        <input type="password" id="password" name="password" placeholder="รหัสผ่านใหม่" class="form-control">
                         <i class="fa fa-eye eye-icon" id="eyeIcon1"></i>
                     </div>
                 </div>
                 <div class="input-box">
                     <label for="confirm_password" class="form-label">ยืนยันรหัสผ่าน</label>
                     <div class="password-container">
-                        <input type="password" id="confirm_password" name="confirm_password" placeholder="รหัสต้องมี A-Z, a-z, !@ และ 0-9" class="form-control">
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="ยืนยันรหัสผ่านใหม่" class="form-control">
                         <i class="fa fa-eye eye-icon" id="eyeIcon2"></i>
                     </div>
                 </div>

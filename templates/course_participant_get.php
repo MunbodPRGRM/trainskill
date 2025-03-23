@@ -26,7 +26,6 @@ foreach ($training as $activity) {
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
                     <tr>
-                        <th>ชื่อกิจกรรม</th>
                         <th>UserID</th>
                         <th>ชื่อ</th>
                         <th>อีเมล</th>
@@ -39,7 +38,6 @@ foreach ($training as $activity) {
                 <tbody>
                     <?php foreach ($training as $activity): ?>
                         <tr>
-                            <td><?= $activity['course_name'] ?></td>
                             <td><?= $activity['user_id'] ?></td>
                             <td><?= $activity['user_name'] ?></td>
                             <td><?= $activity['email'] ?></td>
@@ -62,8 +60,13 @@ foreach ($training as $activity) {
                                 <?php if ($activity['status'] == 'accepted' || $activity['status'] == 'cancelled') { ?>
                                     <a href="/course_response?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&status=<?= $activity['status'] ?>&bt=0" class="btn btn-warning btn-sm" onclick="return confirmAlright()">ยกเลิก</a>
                                 <?php } else { ?>
-                                    <a href="/course_response?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&status=<?= $activity['status'] ?>&bt=1" class="btn btn-success btn-sm" onclick="return confirmAlright()">ยอมรับ</a>
-                                    <a href="/course_response?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&status=<?= $activity['status'] ?>&bt=2" class="btn btn-danger btn-sm" onclick="return confirmReject()">ปฏิเสธ</a>
+                                    <?php if (getNumberParticipants($activity['course_id']) === $activity['max_participants']): ?>
+                                        <button class="btn btn-success btn-sm" disabled>ยอมรับ</button>
+                                        <button class="btn btn-danger btn-sm" disabled>ปฏิเสธ</button>
+                                    <?php else: ?>
+                                        <a href="/course_response?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&status=<?= $activity['status'] ?>&bt=1" class="btn btn-success btn-sm" onclick="return confirmAlright()">ยอมรับ</a>
+                                        <a href="/course_response?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&status=<?= $activity['status'] ?>&bt=2" class="btn btn-danger btn-sm" onclick="return confirmReject()">ปฏิเสธ</a>
+                                    <?php endif; ?>
                                 <?php } ?>
                             </td>
                         </tr>
