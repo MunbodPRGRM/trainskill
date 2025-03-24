@@ -52,7 +52,8 @@ function getTrainingByUserId(int $user_id)
         INNER JOIN registration r ON t.registration_id = r.registration_id
         INNER JOIN courses c ON r.course_id = c.course_id
         INNER JOIN users u ON c.user_id = u.user_id
-        WHERE r.user_id = ?;
+        WHERE r.user_id = ?
+        ORDER BY t.training_id DESC;
     ';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $user_id);

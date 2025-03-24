@@ -1,46 +1,60 @@
 <head>
     <title>TrainSkill-แก้ไขกิจกรรม</title>
     <style>
-        .image-upload-titel, .image-upload {
+        .image-upload-titel,
+        .image-upload {
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background-color: #ddd; /* ให้มีสีพื้นหลัง */
+            background-color: #ddd;
+            /* ให้มีสีพื้นหลัง */
         }
-        .image-upload-titel img, .image-upload img {
+
+        .image-upload-titel img,
+        .image-upload img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
         .image-upload-titel {
-            min-height: 344px; /* ควบคุมขนาด */
+            min-height: 344px;
+            /* ควบคุมขนาด */
             max-height: 344px;
             width: 644px;
         }
+
         .image-upload {
             min-height: 225.5px;
             max-height: 225.5px;
         }
+
         /* สำหรับมือถือ */
         @media (max-width: 766px) {
-            .image-upload-titel, .image-upload {
-                min-height: 150px;
-                max-height: 150px;
-            }
-        }
-        @media (min-width: 767px) and (max-width: 768px) {
-            .image-upload-titel {
-                min-height: 300px;
-                max-height: 300px;
-            }
+
+            .image-upload-titel,
             .image-upload {
                 min-height: 150px;
                 max-height: 150px;
             }
         }
+
+        @media (min-width: 767px) and (max-width: 768px) {
+            .image-upload-titel {
+                min-height: 300px;
+                max-height: 300px;
+            }
+
+            .image-upload {
+                min-height: 150px;
+                max-height: 150px;
+            }
+        }
+
         #description {
-            resize: none; /* ห้ามปรับขนาด */
+            resize: none;
+            /* ห้ามปรับขนาด */
         }
     </style>
 </head>
@@ -60,15 +74,15 @@ $images = $courseDetails ? $courseDetails['images'] : [];
         <form action="/course_edit" method="post" enctype="multipart/form-data">
             <div class="row">
                 <input type="hidden" name="course_id" value="<?= $activity['course_id'] ?>">
-                    <!-- อัปโหลดรูปหลัก -->
-                    <div class="col-12 col-md-6 d-flex align-items-center justify-content-center mb-3 mb-md-0">
-                        <label for="image1" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload-titel">
-                            <img id="preview-image1" class="w-100 h-100 object-fit-cover <?= empty($images[1]) ? 'd-none' : '' ?>"
-                            src="<?= ($images[1]) ?>" 
+                <!-- อัปโหลดรูปหลัก -->
+                <div class="col-12 col-md-6 d-flex align-items-center justify-content-center mb-3 mb-md-0">
+                    <label for="image1" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload-titel">
+                        <img id="preview-image1" class="w-100 h-100 object-fit-cover <?= empty($images[1]) ? 'd-none' : '' ?>"
+                            src="<?= ($images[1]) ?>"
                             alt="กิจกรรม">
-                        </label>
-                        <input type="file" id="image1" name="image1" class="d-none" onchange="previewImage(this, 'preview-image1')">
-                    </div>
+                    </label>
+                    <input type="file" id="image1" name="image1" class="d-none" onchange="previewImage(this, 'preview-image1')">
+                </div>
 
                 <div class="col-12 col-md-6">
                     <div class="mb-2">
@@ -103,17 +117,20 @@ $images = $courseDetails ? $courseDetails['images'] : [];
                 <?php for ($i = 2; $i <= 4; $i++) { ?>
                     <div class="col-12 col-md-4">
                         <label for="image<?= $i ?>" class="border d-flex align-items-center justify-content-center bg-dark text-light image-upload">
-                            <img id="preview-image<?= $i ?>" class="w-100 h-100 object-fit-cover <?= empty($images[$i]) ? 'd-none' : '' ?>" 
-                            src="<?= $images[$i] ?>" 
-                            alt="รูปที่ <?= $i ?>">
+                            <img id="preview-image<?= $i ?>" class="w-100 h-100 object-fit-cover <?= empty($images[$i]) ? 'd-none' : '' ?>"
+                                src="<?= $images[$i] ?>"
+                                alt="รูปที่ <?= $i ?>">
                         </label>
-                    <input type="file" id="image<?= $i ?>" name="image<?= $i ?>" class="d-none" onchange="previewImage(this, 'preview-image<?= $i ?>')">
+                        <input type="file" id="image<?= $i ?>" name="image<?= $i ?>" class="d-none" onchange="previewImage(this, 'preview-image<?= $i ?>')">
                     </div>
                 <?php } ?>
             </div>
 
             <div class="mt-4 text-center">
                 <input type="submit" class="btn btn-success w-50" value="บันทึกการแก้ไข"></input>
+            </div>
+            <div class="mt-2 text-center">
+                <a href="/course_own" class="btn btn-secondary w-50">ยกเลิกการแก้ไข</a>
             </div>
         </form>
     </div>

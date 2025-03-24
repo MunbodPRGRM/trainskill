@@ -4,15 +4,21 @@ $training = $data['training'];
 
 foreach ($training as $activity) {
     $course_name = $activity['course_name'];
+    $course_id = $activity['course_id'];
 }
 
 ?>
 
 <div class="container mt-4 content">
     <div class="card p-4">
-        <h3 class="mb-3">เช็กชื่อผู้มาเข้าร่วมกิจกรรม <?= $course_name ?></h3>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="mb-3">เช็กชื่อผู้มาเข้าร่วมกิจกรรม <?= $course_name ?></h3>
+            <a href="/course_participant?id=<?= $course_id ?>" class="btn btn-secondary">
+                <i class="fas fa-user-check"></i> ย้อนกลับ
+            </a>
+        </div>
         <p style="color: red;">***หากกดส่งรหัส OTP ไปให้ผู้ที่มาเข้าร่วมแล้ว รหัสจะอยู่ที่หน้าการแจ้งเตือนของผู้เข้าร่วม***</p>
-        <p style="color: red;">***ยังไม่ได้กำหนดเวลาของ OTP ดังนั้นหากส่งรหัสไปแล้ว ผู้เข้าร่วมไม่ได้ใส่รหัส ให้กดไม่มาที่จัดการฉุกเฉิน***</p>
+        <p style="color: red;">***ยังไม่ได้กำหนดการหมดเวลาของ OTP ดังนั้นหากส่งรหัสไปแล้วผู้เข้าร่วมไม่ได้ใส่รหัส ให้กดไม่มาที่จัดการฉุกเฉิน***</p>
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">

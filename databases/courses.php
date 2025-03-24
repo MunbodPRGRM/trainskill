@@ -7,6 +7,7 @@ function getCourses()
         SELECT c.*, u.user_name 
         FROM courses c
         INNER JOIN users u ON c.user_id = u.user_id
+        ORDER BY c.course_id DESC
     ';
     $stmt = $conn->prepare($sql);
     $stmt->execute();
@@ -60,6 +61,7 @@ function getCourseByUserId(int $user_id)
         FROM courses c
         INNER JOIN users u ON c.user_id = u.user_id
         WHERE c.user_id = ?
+        ORDER BY c.course_id DESC
     ';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $user_id);
