@@ -18,11 +18,15 @@ foreach ($training as $activity) {
                     <a href="/check_participant?course_id=<?= $course_id ?>" class="btn btn-primary">
                         <i class="fas fa-user-check"></i> เช็กชื่อผู้มาเข้าร่วมกิจกรรม
                     </a>
+                    <a href="/course_statistic?course_id=<?= $course_id ?>" class="btn btn-info">
+                        ดูสถิติการเข้าร่วม
+                    </a>
                     <a href="/course_own" class="btn btn-secondary">
                         <i class="fas fa-user-check"></i> ย้อนกลับ
                     </a>
                 </div>
             </div>
+            <p class="card-text">ผู้ที่่เข้าร่วมได้: <?= getNumberParticipants($activity['course_id']); ?>/<?= $activity['max_participants'] ?> คน</p>
         <?php } else { ?>
             <h3 class="mb-3">ยังไม่มีผู้ขอเข้าร่วมกับกิจกรรมของคุณ</h3>
         <?php } ?>

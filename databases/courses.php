@@ -29,7 +29,7 @@ function getCourseByName(string $course_name)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $course_name);
     $stmt->execute();
-    
+
     $result = $stmt->get_result();
 
     return $result;
@@ -47,7 +47,7 @@ function getCourseById(int $course_id)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $course_id);
     $stmt->execute();
-    
+
     $result = $stmt->get_result();
 
     return $result;
@@ -66,29 +66,30 @@ function getCourseByUserId(int $user_id)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $user_id);
     $stmt->execute();
-    
+
     $result = $stmt->get_result();
 
     return $result;
 }
 
-function createCourse($courseName, $description, $maxParticipants, $startDate, $endDate, $userId) {
-    $conn = getConnection(); 
+function createCourse($courseName, $description, $maxParticipants, $startDate, $endDate, $userId)
+{
+    $conn = getConnection();
 
     $stmt = $conn->prepare("INSERT INTO courses (course_name, user_id, description, start_date, end_date, max_participants) 
                             VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sisssi", $courseName, $userId, $description, $startDate, $endDate, $maxParticipants);
 
     if ($stmt->execute()) {
-        $courseId = $conn->insert_id; 
+        $courseId = $conn->insert_id;
         $stmt->close();
 
-        uploadCourseImages($courseId, $_FILES); 
+        uploadCourseImages($courseId, $_FILES);
 
-        return true; 
+        return true;
     } else {
         $stmt->close();
-        return false; 
+        return false;
     }
 }
 
@@ -108,13 +109,14 @@ function editCourse(int $course_id, string $course_name, string $description, in
 
     if ($result) {
         updateImages($course_id, $files);
-        return true;  
+        return true;
     } else {
         return false;
     }
 }
 
-function deleteCourse(int $course_id) {
+function deleteCourse(int $course_id)
+{
     $conn = getConnection();
 
     deleteImage($course_id);
@@ -198,4 +200,28 @@ function hasJoinedCourse($user_id, $course_id)
     $stmt->fetch();
     $stmt->close();
     return $count > 0;
+}
+
+function getStatistics($course_id)
+{
+    $conn = getConnection();
+    $stmt = $conn->prepare("SELECT 
+                c.course_name,
+                c.start_date,
+                c.end_date,
+                COUNT(r.user_id) AS total_registered,
+                COUNT(CASE WHEN t.attendance = 'present' THEN 1 ELSE NULL END) AS attended,
+                COUNT(CASE WHEN t.attendance = 'absent' THEN 1 ELSE NULL END) AS absent,
+                ROUND((COUNT(CASE WHEN t.attendance = 'present' THEN 1 ELSE NULL END) / COUNT(r.user_id)) * 100, 2) AS attendance_rate
+            FROM courses c
+            LEFT JOIN registration r ON c.course_id = r.course_id
+            LEFT JOIN training t ON r.registration_id = t.registration_id
+            WHERE c.course_id = ?
+            GROUP BY c.course_id");
+    $stmt->bind_param("i", $course_id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    return $result;
 }

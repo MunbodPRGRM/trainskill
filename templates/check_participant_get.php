@@ -13,12 +13,18 @@ foreach ($training as $activity) {
     <div class="card p-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3 class="mb-3">เช็กชื่อผู้มาเข้าร่วมกิจกรรม <?= $course_name ?></h3>
-            <a href="/course_participant?id=<?= $course_id ?>" class="btn btn-secondary">
-                <i class="fas fa-user-check"></i> ย้อนกลับ
-            </a>
+            <div>
+                <a href="/course_statistic?course_id=<?= $course_id ?>" class="btn btn-info">
+                    ดูสถิติการเข้าร่วม
+                </a>
+                <a href="/course_participant?id=<?= $course_id ?>" class="btn btn-secondary">
+                    <i class="fas fa-user-check"></i> ย้อนกลับ
+                </a>
+            </div>
         </div>
         <p style="color: red;">***หากกดส่งรหัส OTP ไปให้ผู้ที่มาเข้าร่วมแล้ว รหัสจะอยู่ที่หน้าการแจ้งเตือนของผู้เข้าร่วม***</p>
-        <p style="color: red;">***ยังไม่ได้กำหนดการหมดเวลาของ OTP ดังนั้นหากส่งรหัสไปแล้วผู้เข้าร่วมไม่ได้ใส่รหัส ให้กดไม่มาที่จัดการฉุกเฉิน***</p>
+        <p style="color: red;">***ไม่ได้กำหนดการหมดเวลาของ OTP ดังนั้นหากส่งรหัสไปแล้วผู้เข้าร่วมไม่ได้ใส่รหัส ให้กดไม่มาที่จัดการฉุกเฉิน***</p>
+        <p class="card-text">จำนวนผู้เข้าร่วม: <?= getNumberParticipants($activity['course_id']); ?>/<?= $activity['max_participants'] ?> คน</p>
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
@@ -61,13 +67,17 @@ foreach ($training as $activity) {
                                 <?php endif; ?>
 
                                 <td class="text-center">
-                                    <?php if (isset($activity['otp'])): ?>
+                                    <?php if (isset($activity['otp']) || $activity['attendance'] == 'present'): ?>
                                         <button class="btn btn-success btn-sm" disabled>ส่งรหัส</button>
                                     <?php else: ?>
                                         <a href="/check_participant?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&btOTP=1" class="btn btn-success btn-sm">ส่งรหัส</a>
                                     <?php endif; ?>
 
-                                    <a href="/check_participant?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&btOTP=2" class="btn btn-danger btn-sm">ยกเลิก</a>
+                                    <?php if ($activity['attendance'] == 'present'): ?>
+                                        <button class="btn btn-danger btn-sm" disabled>ยกเลิก</button>
+                                    <?php else: ?>
+                                        <a href="/check_participant?user_id=<?= $activity['user_id'] ?>&course_id=<?= $activity['course_id'] ?>&btOTP=2" class="btn btn-danger btn-sm">ยกเลิก</a>
+                                    <?php endif; ?>
                                 </td>
 
                                 <td class="text-center">
